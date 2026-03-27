@@ -664,6 +664,7 @@ export default function Home() {
                   border: "1px solid rgba(0,0,0,0.07)",
                   boxShadow: "0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)",
                   padding: 4,
+                  overflow: "hidden",
                 }}>
                 {/* Sliding pill */}
                 <div style={{
