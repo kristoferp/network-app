@@ -673,8 +673,9 @@ export default function Home() {
                       aria-label={label}>
                       <div className="flex flex-col items-center justify-center"
                         style={{
-                          width: 64, height: 56,
-                          borderRadius: 20,
+                          paddingLeft: 14, paddingRight: 14,
+                          paddingTop: 9, paddingBottom: 9,
+                          borderRadius: 999,
                           gap: 5,
                           background: active ? "rgba(0,0,0,0.06)" : "transparent",
                           transition: "background 0.18s",
