@@ -298,10 +298,10 @@ export default function Home() {
   const cfg = stateConfig[netStatus];
 
   const tabs = [
-    { id: "home",     label: "Home",     Icon: HomeIcon },
-    { id: "devices",  label: "Devices",  Icon: DevicesIcon },
-    { id: "wifi",     label: "WiFi",     Icon: WifiTabIcon },
-    { id: "alerts",   label: "Alerts",   Icon: BellIcon },
+    { id: "home",     label: "Status",   Icon: HomeIcon },
+    { id: "devices",  label: "Network",  Icon: DevicesIcon },
+    { id: "wifi",     label: "Devices",  Icon: WifiTabIcon },
+    { id: "alerts",   label: "Insights", Icon: BellIcon },
     { id: "settings", label: "Settings", Icon: GearIcon },
   ];
 
@@ -656,11 +656,11 @@ export default function Home() {
             }}>
               <div className="flex items-center justify-around relative"
                 style={{
-                  height: 62,
+                  height: 72,
                   background: "rgba(255,255,255,0.82)",
                   backdropFilter: "blur(24px)",
                   WebkitBackdropFilter: "blur(24px)",
-                  borderRadius: 31,
+                  borderRadius: 36,
                   border: "1px solid rgba(255,255,255,0.95)",
                   boxShadow: "0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9)",
                 }}>
@@ -670,13 +670,21 @@ export default function Home() {
                   return (
                     <button key={id} className="flex items-center justify-center flex-1" onClick={() => setActiveTab(id)}
                       aria-label={label}>
-                      <div className="flex items-center justify-center rounded-2xl"
+                      <div className="flex flex-col items-center justify-center gap-0.5 rounded-2xl"
                         style={{
-                          width: 52, height: 42,
+                          width: 56, height: 56,
                           background: active && !isHome ? "rgba(0,0,0,0.07)" : "transparent",
                           transition: "background 0.2s",
                         }}>
                         <Icon color={active ? "#0066FC" : "#8E8E93"} />
+                        <span style={{
+                          fontSize: 9,
+                          fontWeight: active ? 600 : 400,
+                          color: active ? "#0066FC" : "#8E8E93",
+                          letterSpacing: 0.1,
+                          fontFamily: "Google Sans, sans-serif",
+                          lineHeight: 1,
+                        }}>{label}</span>
                       </div>
                     </button>
                   );
