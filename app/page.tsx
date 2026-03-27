@@ -362,7 +362,7 @@ export default function Home() {
 
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 16, background: "#ffffff" }}>
-              <div className="px-4 pt-2 pb-4 flex flex-col gap-3">
+              <div className="px-4 pt-6 pb-4 flex flex-col gap-6">
 
                 {/* ── Top two iOS pill buttons ─────────────────────────────── */}
                 <div className="flex gap-3 items-center">
