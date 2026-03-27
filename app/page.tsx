@@ -362,7 +362,7 @@ export default function Home() {
             </div>}
 
             {/* ── Top pill buttons — fixed header outside scroll ────────────── */}
-            <div className="shrink-0 px-4 pt-5 pb-4" style={{ background: "#ffffff" }}>
+            <div className="shrink-0 px-4 pt-5 pb-4">
               <div className="flex gap-3 items-center">
                 <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
                   background: "rgba(249,249,249,0.95)",
