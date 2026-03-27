@@ -363,7 +363,7 @@ export default function Home() {
 
             {/* ── Top pill buttons — absolute, no scroll on touch ───────────── */}
             <div className="absolute left-0 right-0 px-4 z-20" style={{
-              top: isMobile ? "calc(env(safe-area-inset-top, 0px) + 60px)" : 60,
+              top: isMobile ? "calc(env(safe-area-inset-top, 0px) + 16px)" : 60,
               touchAction: "none",
             }}>
               <div className="flex gap-3 items-center">
@@ -393,7 +393,7 @@ export default function Home() {
             {/* Scrollable content — full height, only this area scrolls */}
             <div className="absolute inset-0 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
               <div className="px-4 pb-4 flex flex-col gap-4" style={{
-                paddingTop: isMobile ? "calc(env(safe-area-inset-top, 0px) + 144px)" : 140,
+                paddingTop: isMobile ? "calc(env(safe-area-inset-top, 0px) + 88px)" : 140,
               }}>
 
                 {/* ── Network status banner ────────────────────────────────── */}
