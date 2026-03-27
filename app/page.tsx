@@ -364,29 +364,30 @@ export default function Home() {
             {/* Safe-area top spacer on real mobile */}
             {isMobile && <div style={{ height: "env(safe-area-inset-top, 44px)" }} className="shrink-0" />}
 
-            {/* ── Sticky top pill buttons ───────────────────────────────────── */}
-            <div className="shrink-0 px-4 pb-3 pt-2" style={{
-              background: "rgba(255,255,255,0.88)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              borderBottom: "1px solid rgba(0,0,0,0.04)",
+            {/* ── Floating top pill buttons (overlays content) ─────────────── */}
+            <div className="absolute left-0 right-0 px-4 z-10" style={{
+              top: isMobile ? "env(safe-area-inset-top, 44px)" : 0,
+              paddingTop: 12,
+              paddingBottom: 10,
             }}>
               <div className="flex gap-3 items-center">
                 <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
-                  background: "rgba(249,249,249,0.95)",
-                  border: "1px solid rgba(255,255,255,0.85)",
-                  boxShadow: "0 0 28px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
-                  backdropFilter: "blur(12px)",
+                  background: "rgba(255,255,255,0.82)",
+                  border: "1px solid rgba(255,255,255,0.9)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.11), 0 2px 8px rgba(0,0,0,0.06)",
+                  backdropFilter: "blur(24px)",
+                  WebkitBackdropFilter: "blur(24px)",
                 }}>
                   <GlobeIcon />
                   <span className="flex-1 text-left text-[17px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Dream Router 7</span>
                   <span className="text-[#9da1a7]"><ChevronDown /></span>
                 </button>
                 <button className="flex items-center gap-3 px-4 h-12 rounded-full" style={{
-                  background: "rgba(249,249,249,0.95)",
-                  border: "1px solid rgba(255,255,255,0.85)",
-                  boxShadow: "0 0 28px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
-                  backdropFilter: "blur(12px)",
+                  background: "rgba(255,255,255,0.82)",
+                  border: "1px solid rgba(255,255,255,0.9)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.11), 0 2px 8px rgba(0,0,0,0.06)",
+                  backdropFilter: "blur(24px)",
+                  WebkitBackdropFilter: "blur(24px)",
                 }}>
                   <MenuIcon />
                   <div className="w-7 h-7 rounded-full border-2 border-[#0073f1] overflow-hidden flex items-center justify-center"
@@ -397,9 +398,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Scrollable content */}
+            {/* Scrollable content — starts from top, pads for floating bars */}
             <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
-              <div className="px-4 pt-4 pb-4 flex flex-col gap-4">
+              <div className="px-4 pt-24 pb-4 flex flex-col gap-4">
 
                 {/* ── Network status banner ────────────────────────────────── */}
                 <div className="rounded-2xl p-4 flex gap-3 items-start"
