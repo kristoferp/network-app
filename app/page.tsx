@@ -115,37 +115,41 @@ const MenuIcon = () => (
     <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
   </svg>
 );
-const HomeIcon = ({ color = "#9da1a7" }: { color?: string }) => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-    <polyline points="9 22 9 12 15 12 15 22"/>
+// Tab bar icons — matched to reference image
+const HomeIcon = ({ color = "#1c1c1e" }: { color?: string }) => (
+  // Filled circle with white wifi arcs inside
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <circle cx="14" cy="14" r="13" fill={color}/>
+    <path d="M14 18.5a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6z" fill="white"/>
+    <path d="M10.2 15.3a5.4 5.4 0 0 1 7.6 0" stroke="white" strokeWidth="1.7" strokeLinecap="round" fill="none"/>
+    <path d="M7.5 12.6a9 9 0 0 1 13 0" stroke="white" strokeWidth="1.7" strokeLinecap="round" fill="none"/>
   </svg>
 );
-const DevicesIcon = ({ color = "#9da1a7" }: { color?: string }) => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="3" width="14" height="11" rx="2"/>
-    <path d="M8 21h8M12 17v4"/>
-    <rect x="18" y="10" width="4" height="7" rx="1"/>
+const DevicesIcon = ({ color = "#1c1c1e" }: { color?: string }) => (
+  // Thick donut ring
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <circle cx="14" cy="14" r="11" stroke={color} strokeWidth="5.5"/>
+    <circle cx="14" cy="14" r="3.5" fill={color}/>
   </svg>
 );
-const WifiTabIcon = ({ color = "#9da1a7" }: { color?: string }) => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
-    <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-    <circle cx="12" cy="20" r="1" fill={color} stroke="none"/>
+const WifiTabIcon = ({ color = "#1c1c1e" }: { color?: string }) => (
+  // Two overlapping rounded rectangles (front-back offset)
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <rect x="3" y="5" width="15" height="13" rx="2.5" fill={color}/>
+    <rect x="10" y="10" width="15" height="13" rx="2.5" fill={color}/>
   </svg>
 );
-const BellIcon = ({ color = "#9da1a7" }: { color?: string }) => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+const BellIcon = ({ color = "#1c1c1e" }: { color?: string }) => (
+  // Light bulb — round filled top, small rectangular base
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M14 4a7 7 0 0 1 5 11.8l-1 1.7H10l-1-1.7A7 7 0 0 1 14 4z" fill={color}/>
+    <rect x="10.5" y="17.5" width="7" height="2.2" rx="1" fill={color}/>
+    <path d="M11.5 20.5c0 1.4 1.1 2.5 2.5 2.5s2.5-1.1 2.5-2.5h-5z" fill={color}/>
   </svg>
 );
-const GearIcon = ({ color = "#9da1a7" }: { color?: string }) => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="3"/>
-    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+const GearIcon = ({ color = "#1c1c1e" }: { color?: string }) => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill={color}>
+    <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
   </svg>
 );
 const NetIcon = () => (
@@ -361,7 +365,7 @@ export default function Home() {
             {isMobile && <div style={{ height: "env(safe-area-inset-top, 44px)" }} className="shrink-0" />}
 
             {/* Scrollable content */}
-            <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 16, background: "#ffffff" }}>
+            <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
               <div className="px-4 pt-6 pb-4 flex flex-col gap-4">
 
                 {/* ── Top two iOS pill buttons ─────────────────────────────── */}
@@ -647,31 +651,33 @@ export default function Home() {
             </div>
 
             {/* ── Floating glass tab bar ───────────────────────────────────── */}
-            <div className="shrink-0 px-3" style={{
-              paddingTop: 10,
-              paddingBottom: isMobile ? "max(14px, env(safe-area-inset-bottom, 14px))" : 14,
-              background: "#ffffff",
+            <div className="absolute left-0 right-0 px-7" style={{
+              bottom: isMobile ? "max(24px, env(safe-area-inset-bottom, 24px))" : 20,
             }}>
               <div className="flex items-center justify-around relative"
                 style={{
-                  height: 60,
-                  background: "rgba(255,255,255,0.88)",
+                  height: 62,
+                  background: "rgba(255,255,255,0.82)",
                   backdropFilter: "blur(24px)",
                   WebkitBackdropFilter: "blur(24px)",
-                  borderRadius: 30,
+                  borderRadius: 31,
                   border: "1px solid rgba(255,255,255,0.95)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.11), 0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9)",
                 }}>
                 {tabs.map(({ id, label, Icon }) => {
                   const active = activeTab === id;
-                  const color = active ? "#0073f1" : "#9da1a7";
+                  const isHome = id === "home";
                   return (
-                    <button key={id} className="flex flex-col items-center gap-0.5 flex-1 relative" onClick={() => setActiveTab(id)}>
-                      {active && (
-                        <div className="absolute inset-0 mx-2 my-1 rounded-2xl" style={{ background: "rgba(0,115,241,0.07)" }}/>
-                      )}
-                      <Icon color={color} />
-                      <span className="text-[10px] relative" style={{ fontFamily: "'Google Sans', sans-serif", color, fontWeight: active ? 600 : 400 }}>{label}</span>
+                    <button key={id} className="flex items-center justify-center flex-1" onClick={() => setActiveTab(id)}
+                      aria-label={label}>
+                      <div className="flex items-center justify-center rounded-2xl"
+                        style={{
+                          width: 52, height: 42,
+                          background: active && !isHome ? "rgba(0,0,0,0.07)" : "transparent",
+                          transition: "background 0.2s",
+                        }}>
+                        <Icon color={isHome ? (active ? "#0073f1" : "#1c1c1e") : (active ? "#0073f1" : "#1c1c1e")} />
+                      </div>
                     </button>
                   );
                 })}
