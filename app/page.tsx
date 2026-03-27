@@ -670,9 +670,10 @@ export default function Home() {
                   return (
                     <button key={id} className="flex items-center justify-center flex-1" onClick={() => setActiveTab(id)}
                       aria-label={label}>
-                      <div className="flex flex-col items-center justify-center gap-1.5 rounded-2xl"
+                      <div className="flex flex-col items-center justify-center gap-1.5"
                         style={{
                           width: 56, height: 56,
+                          borderRadius: 28,
                           background: active ? "rgba(0,0,0,0.07)" : "transparent",
                           transition: "background 0.2s",
                         }}>
