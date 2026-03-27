@@ -200,7 +200,7 @@ const PulseDot = ({ color = "#22c55e" }: { color?: string }) => (
 
 // ── Shortcut button gradient ──────────────────────────────────────────────────
 const shortcutBtnStyle: React.CSSProperties = {
-  border: "1px solid #edeef0",
+  border: "1px solid #E7E7E7",
   background: "linear-gradient(180deg, #f6f6f7 0%, #ffffff 100%)",
   borderRadius: 16,
 };
@@ -409,7 +409,7 @@ export default function Home() {
                 {/* ── Status tiles ─────────────────────────────────────────── */}
                 <div className="flex gap-2">
                   {/* Internet */}
-                  <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #edeef0", height: 110 }}>
+                  <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Internet</p>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -421,7 +421,7 @@ export default function Home() {
                     <p className="text-[11px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.internet.sub}</p>
                   </div>
                   {/* WiFi */}
-                  <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #edeef0", height: 110 }}>
+                  <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>WiFi</p>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -433,7 +433,7 @@ export default function Home() {
                     <p className="text-[11px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.wifi.sub}</p>
                   </div>
                   {/* Devices */}
-                  <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #edeef0", height: 110 }}>
+                  <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Devices</p>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -455,7 +455,7 @@ export default function Home() {
                 </div>
 
                 {/* ── Connection quality card (collapsible) ────────────────── */}
-                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #edeef0", overflow: "hidden" }}>
+                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
                   <button className="flex items-center justify-between w-full px-4 pt-4"
                     onClick={() => setQualityOpen(o => !o)}>
                     <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Connection quality</p>
@@ -468,7 +468,7 @@ export default function Home() {
                         <span className="text-[14px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Telenor Sverige</span>
                         <span className="text-[14px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>23.234.12.1</span>
                       </div>
-                      <div className="rounded-full overflow-hidden flex" style={{ height: 8, border: "1px solid #edeef0" }}>
+                      <div className="rounded-full overflow-hidden flex" style={{ height: 8, border: "1px solid #E7E7E7" }}>
                         {cfg.qualityBar.map((seg, i) => (
                           <div key={i} style={{ width: seg.w === "1" ? undefined : seg.w, flex: seg.w === "1" ? 1 : undefined, background: seg.bg, transition: "background 0.6s" }}/>
                         ))}
@@ -505,7 +505,7 @@ export default function Home() {
                 </div>
 
                 {/* ── Internet activity card (collapsible, animated) ────────── */}
-                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #edeef0", overflow: "hidden" }}>
+                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
                   <button className="flex items-center justify-between w-full px-4 pt-4"
                     onClick={() => setActivityOpen(o => !o)}>
                     <div className="flex items-center gap-1">
@@ -555,11 +555,11 @@ export default function Home() {
                           </defs>
                           {/* Horizontal grid */}
                           {[CT, CT + (CB-CT)*0.33, CT + (CB-CT)*0.66, CB].map((yy, i) => (
-                            <line key={i} x1={CL} y1={yy} x2={CR} y2={yy} stroke="#edeef0" strokeWidth="1"/>
+                            <line key={i} x1={CL} y1={yy} x2={CR} y2={yy} stroke="#E7E7E7" strokeWidth="1"/>
                           ))}
                           {/* Vertical grid */}
                           {[0,1,2,3,4].map(i => (
-                            <line key={i} x1={CL + i*(CR-CL)/4} y1={CT} x2={CL + i*(CR-CL)/4} y2={CB} stroke="#edeef0" strokeWidth="1" strokeDasharray="3,3"/>
+                            <line key={i} x1={CL + i*(CR-CL)/4} y1={CT} x2={CL + i*(CR-CL)/4} y2={CB} stroke="#E7E7E7" strokeWidth="1" strokeDasharray="3,3"/>
                           ))}
                           {/* DL */}
                           <path d={smoothPath(dl, true)} fill="url(#dlGrad)" clipPath="url(#chartClip)"/>
