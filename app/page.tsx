@@ -679,7 +679,7 @@ export default function Home() {
                           background: active ? "rgba(0,0,0,0.06)" : "transparent",
                           transition: "background 0.18s",
                         }}>
-                        <div style={{ width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <div style={{ width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <Icon color={active ? "#0066FC" : "#111111"} />
                         </div>
                         <span style={{
