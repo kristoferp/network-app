@@ -361,11 +361,10 @@ export default function Home() {
               </div>
             </div>}
 
-            {/* Safe-area top spacer on real mobile */}
-            {isMobile && <div style={{ height: "env(safe-area-inset-top, 44px)" }} className="shrink-0" />}
-
             {/* ── Floating top pill buttons ─────────────────────────────────── */}
-            <div className="shrink-0 px-4 z-10" style={{ paddingTop: 12, paddingBottom: 10 }}>
+            <div className="absolute left-0 right-0 px-4 z-10" style={{
+              top: isMobile ? "calc(env(safe-area-inset-top, 16px) + 8px)" : 12,
+            }}>
               <div className="flex gap-3 items-center">
                 <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
                   background: "rgba(255,255,255,0.82)",
@@ -396,7 +395,7 @@ export default function Home() {
 
             {/* Scrollable content — starts from top, pads for floating bars */}
             <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
-              <div className="px-4 pb-4 flex flex-col gap-4" style={{ paddingTop: 24 }}>
+              <div className="px-4 pb-4 flex flex-col gap-4" style={{ paddingTop: 80 }}>
 
                 {/* ── Network status banner ────────────────────────────────── */}
                 <div className="rounded-2xl p-4 flex gap-3 items-start"
