@@ -675,7 +675,7 @@ export default function Home() {
                         style={{
                           width: 64, height: 56,
                           borderRadius: 20,
-                          gap: 3,
+                          gap: 5,
                           background: active ? "rgba(0,0,0,0.06)" : "transparent",
                           transition: "background 0.18s",
                         }}>
