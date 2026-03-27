@@ -651,7 +651,7 @@ export default function Home() {
 
             {/* ── Floating glass tab bar ───────────────────────────────────── */}
             <div className="absolute left-0 right-0 px-4" style={{
-              bottom: isMobile ? "max(16px, env(safe-area-inset-bottom, 16px))" : 20,
+              bottom: isMobile ? "max(24px, env(safe-area-inset-bottom, 24px))" : 28,
               touchAction: "none",
             }}>
               <div className="flex items-center relative"
