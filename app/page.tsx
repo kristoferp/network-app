@@ -650,40 +650,42 @@ export default function Home() {
             </div>
 
             {/* ── Floating glass tab bar ───────────────────────────────────── */}
-            <div className="absolute left-0 right-0 px-7" style={{
-              bottom: isMobile ? "max(24px, env(safe-area-inset-bottom, 24px))" : 20,
+            <div className="absolute left-0 right-0 px-5" style={{
+              bottom: isMobile ? "max(16px, env(safe-area-inset-bottom, 16px))" : 20,
               touchAction: "none",
             }}>
-              <div className="flex items-center justify-center gap-1 relative"
+              <div className="flex items-center justify-between relative"
                 style={{
                   height: 72,
-                  background: "rgba(255,255,255,0.82)",
+                  background: "rgba(255,255,255,0.97)",
                   backdropFilter: "blur(24px)",
                   WebkitBackdropFilter: "blur(24px)",
-                  borderRadius: 36,
-                  border: "1px solid rgba(255,255,255,0.95)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.13), 0 2px 8px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9)",
+                  borderRadius: 40,
+                  border: "1px solid rgba(0,0,0,0.07)",
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)",
+                  paddingLeft: 6,
+                  paddingRight: 6,
                 }}>
                 {tabs.map(({ id, label, Icon }) => {
                   const active = activeTab === id;
-                  const isHome = id === "home";
                   return (
                     <button key={id} className="flex items-center justify-center" onClick={() => setActiveTab(id)}
                       aria-label={label}>
-                      <div className="flex flex-col items-center justify-center gap-1.5"
+                      <div className="flex flex-col items-center justify-center"
                         style={{
-                          width: 68, height: 52,
-                          borderRadius: 26,
-                          background: active ? "rgba(0,0,0,0.07)" : "transparent",
-                          transition: "background 0.2s",
+                          width: 64, height: 56,
+                          borderRadius: 20,
+                          gap: 3,
+                          background: active ? "rgba(0,0,0,0.06)" : "transparent",
+                          transition: "background 0.18s",
                         }}>
-                        <div style={{ width: 22, height: 22, display: "flex", alignItems: "center", justifyContent: "center", transform: "scale(0.9)", transformOrigin: "center" }}>
-                          <Icon color={active ? "#0066FC" : "#8E8E93"} />
+                        <div style={{ width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                          <Icon color={active ? "#0066FC" : "#111111"} />
                         </div>
                         <span style={{
-                          fontSize: 9,
+                          fontSize: 10,
                           fontWeight: active ? 600 : 400,
-                          color: active ? "#0066FC" : "#8E8E93",
+                          color: active ? "#0066FC" : "#111111",
                           letterSpacing: 0.1,
                           fontFamily: "Google Sans, sans-serif",
                           lineHeight: 1,
