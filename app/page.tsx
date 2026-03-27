@@ -665,20 +665,26 @@ export default function Home() {
                   boxShadow: "0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)",
                   padding: 4,
                 }}>
+                {/* Sliding pill */}
+                <div style={{
+                  position: "absolute",
+                  top: 4,
+                  bottom: 4,
+                  left: `calc(4px + ${tabs.findIndex(t => t.id === activeTab)} * ((100% - 8px) / ${tabs.length}))`,
+                  width: `calc((100% - 8px) / ${tabs.length})`,
+                  borderRadius: 999,
+                  background: "rgba(0,0,0,0.06)",
+                  transition: "left 0.28s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  pointerEvents: "none",
+                }} />
                 {tabs.map(({ id, label, Icon }) => {
                   const active = activeTab === id;
                   return (
-                    <button key={id} className="flex-1 flex items-center justify-center min-w-0" onClick={() => setActiveTab(id)}
-                      aria-label={label}>
+                    <button key={id} className="flex-1 flex items-center justify-center min-w-0 relative" onClick={() => setActiveTab(id)}
+                      aria-label={label} style={{ zIndex: 1 }}>
                       <div className="flex flex-col items-center justify-center w-full"
-                        style={{
-                          paddingTop: 9, paddingBottom: 9,
-                          borderRadius: 999,
-                          gap: 5,
-                          background: active ? "rgba(0,0,0,0.06)" : "transparent",
-                          transition: "background 0.18s",
-                        }}>
-                        <div style={{ width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center", opacity: active ? 1 : 0.35 }}>
+                        style={{ paddingTop: 9, paddingBottom: 9, gap: 5 }}>
+                        <div style={{ width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center", opacity: active ? 1 : 0.35, transition: "opacity 0.2s" }}>
                           <Icon color={active ? "#0066FC" : "#111111"} />
                         </div>
                         <span style={{
@@ -686,6 +692,7 @@ export default function Home() {
                           fontWeight: active ? 600 : 400,
                           color: active ? "#0066FC" : "#111111",
                           opacity: active ? 1 : 0.35,
+                          transition: "opacity 0.2s, color 0.2s",
                           letterSpacing: 0.1,
                           fontFamily: "Google Sans, sans-serif",
                           lineHeight: 1,
