@@ -672,12 +672,14 @@ export default function Home() {
                       aria-label={label}>
                       <div className="flex flex-col items-center justify-center gap-1.5"
                         style={{
-                          width: 56, height: 56,
-                          borderRadius: 28,
+                          width: 68, height: 52,
+                          borderRadius: 26,
                           background: active ? "rgba(0,0,0,0.07)" : "transparent",
                           transition: "background 0.2s",
                         }}>
-                        <Icon color={active ? "#0066FC" : "#8E8E93"} />
+                        <div style={{ width: 22, height: 22, display: "flex", alignItems: "center", justifyContent: "center", transform: "scale(0.78)", transformOrigin: "center" }}>
+                          <Icon color={active ? "#0066FC" : "#8E8E93"} />
+                        </div>
                         <span style={{
                           fontSize: 9,
                           fontWeight: active ? 600 : 400,
