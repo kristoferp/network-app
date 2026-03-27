@@ -650,7 +650,7 @@ export default function Home() {
             </div>
 
             {/* ── Floating glass tab bar ───────────────────────────────────── */}
-            <div className="absolute left-0 right-0 px-5" style={{
+            <div className="absolute left-0 right-0 px-4" style={{
               bottom: isMobile ? "max(16px, env(safe-area-inset-bottom, 16px))" : 20,
               touchAction: "none",
             }}>
@@ -663,17 +663,15 @@ export default function Home() {
                   borderRadius: 40,
                   border: "1px solid rgba(0,0,0,0.07)",
                   boxShadow: "0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)",
-                  paddingLeft: 4,
-                  paddingRight: 4,
+                  padding: 4,
                 }}>
                 {tabs.map(({ id, label, Icon }) => {
                   const active = activeTab === id;
                   return (
-                    <button key={id} className="flex-1 flex items-center justify-center" onClick={() => setActiveTab(id)}
+                    <button key={id} className="flex-1 flex items-center justify-center min-w-0" onClick={() => setActiveTab(id)}
                       aria-label={label}>
-                      <div className="flex flex-col items-center justify-center"
+                      <div className="flex flex-col items-center justify-center w-full"
                         style={{
-                          paddingLeft: 18, paddingRight: 18,
                           paddingTop: 9, paddingBottom: 9,
                           borderRadius: 999,
                           gap: 5,
