@@ -673,7 +673,7 @@ export default function Home() {
                       <div className="flex flex-col items-center justify-center gap-1.5 rounded-2xl"
                         style={{
                           width: 56, height: 56,
-                          background: active && !isHome ? "rgba(0,0,0,0.07)" : "transparent",
+                          background: active ? "rgba(0,0,0,0.07)" : "transparent",
                           transition: "background 0.2s",
                         }}>
                         <Icon color={active ? "#0066FC" : "#8E8E93"} />
