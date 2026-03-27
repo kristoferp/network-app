@@ -654,7 +654,7 @@ export default function Home() {
               bottom: isMobile ? "max(16px, env(safe-area-inset-bottom, 16px))" : 20,
               touchAction: "none",
             }}>
-              <div className="flex items-center justify-between relative"
+              <div className="flex items-center relative"
                 style={{
                   height: 72,
                   background: "rgba(255,255,255,0.97)",
@@ -663,17 +663,17 @@ export default function Home() {
                   borderRadius: 40,
                   border: "1px solid rgba(0,0,0,0.07)",
                   boxShadow: "0 4px 20px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06)",
-                  paddingLeft: 6,
-                  paddingRight: 6,
+                  paddingLeft: 4,
+                  paddingRight: 4,
                 }}>
                 {tabs.map(({ id, label, Icon }) => {
                   const active = activeTab === id;
                   return (
-                    <button key={id} className="flex items-center justify-center" onClick={() => setActiveTab(id)}
+                    <button key={id} className="flex-1 flex items-center justify-center" onClick={() => setActiveTab(id)}
                       aria-label={label}>
                       <div className="flex flex-col items-center justify-center"
                         style={{
-                          paddingLeft: 14, paddingRight: 14,
+                          paddingLeft: 18, paddingRight: 18,
                           paddingTop: 9, paddingBottom: 9,
                           borderRadius: 999,
                           gap: 5,
