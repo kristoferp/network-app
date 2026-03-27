@@ -361,41 +361,40 @@ export default function Home() {
               </div>
             </div>}
 
-            {/* ── Floating top pill buttons ─────────────────────────────────── */}
-            <div className="absolute left-0 right-0 px-4 z-10" style={{
-              top: isMobile ? "calc(env(safe-area-inset-top, 16px) + 8px)" : 12,
-            }}>
-              <div className="flex gap-3 items-center">
-                <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
-                  background: "rgba(255,255,255,0.82)",
-                  border: "1px solid rgba(255,255,255,0.9)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.11), 0 2px 8px rgba(0,0,0,0.06)",
-                  backdropFilter: "blur(24px)",
-                  WebkitBackdropFilter: "blur(24px)",
-                }}>
-                  <GlobeIcon />
-                  <span className="flex-1 text-left text-[17px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Dream Router 7</span>
-                  <span className="text-[#9da1a7]"><ChevronDown /></span>
-                </button>
-                <button className="flex items-center gap-3 px-4 h-12 rounded-full" style={{
-                  background: "rgba(255,255,255,0.82)",
-                  border: "1px solid rgba(255,255,255,0.9)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.11), 0 2px 8px rgba(0,0,0,0.06)",
-                  backdropFilter: "blur(24px)",
-                  WebkitBackdropFilter: "blur(24px)",
-                }}>
-                  <MenuIcon />
-                  <div className="w-7 h-7 rounded-full border-2 border-[#0073f1] overflow-hidden flex items-center justify-center"
-                    style={{ background: "linear-gradient(135deg,#60a5fa,#818cf8)" }}>
-                    <span className="text-white text-[11px] font-bold" style={{ fontFamily: "'Google Sans', sans-serif" }}>KP</span>
-                  </div>
-                </button>
-              </div>
-            </div>
-
-            {/* Scrollable content — starts from top, pads for floating bars */}
+            {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
-              <div className="px-4 pb-4 flex flex-col gap-4" style={{ paddingTop: 80 }}>
+
+              {/* ── Sticky top pill buttons ─────────────────────────────────── */}
+              <div className="sticky top-0 z-10 px-4 pt-3 pb-3" style={{
+                background: "rgba(255,255,255,0.75)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+              }}>
+                <div className="flex gap-3 items-center">
+                  <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
+                    background: "rgba(255,255,255,0.9)",
+                    border: "1px solid rgba(255,255,255,0.95)",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05)",
+                  }}>
+                    <GlobeIcon />
+                    <span className="flex-1 text-left text-[17px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Dream Router 7</span>
+                    <span className="text-[#9da1a7]"><ChevronDown /></span>
+                  </button>
+                  <button className="flex items-center gap-3 px-4 h-12 rounded-full" style={{
+                    background: "rgba(255,255,255,0.9)",
+                    border: "1px solid rgba(255,255,255,0.95)",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.05)",
+                  }}>
+                    <MenuIcon />
+                    <div className="w-7 h-7 rounded-full border-2 border-[#0073f1] overflow-hidden flex items-center justify-center"
+                      style={{ background: "linear-gradient(135deg,#60a5fa,#818cf8)" }}>
+                      <span className="text-white text-[11px] font-bold" style={{ fontFamily: "'Google Sans', sans-serif" }}>KP</span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div className="px-4 pb-4 flex flex-col gap-4" style={{ paddingTop: 24 }}>
 
                 {/* ── Network status banner ────────────────────────────────── */}
                 <div className="rounded-2xl p-4 flex gap-3 items-start"
