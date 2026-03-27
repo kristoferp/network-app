@@ -692,7 +692,7 @@ export default function Home() {
                           fontSize: 10,
                           fontWeight: active ? 600 : 400,
                           color: active ? "#0066FC" : "#111111",
-                          opacity: active ? 1 : 0.35,
+                          opacity: active ? 1 : 0.5,
                           transition: "opacity 0.2s, color 0.2s",
                           letterSpacing: 0.1,
                           fontFamily: "Google Sans, sans-serif",
