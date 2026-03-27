@@ -364,35 +364,42 @@ export default function Home() {
             {/* Safe-area top spacer on real mobile */}
             {isMobile && <div style={{ height: "env(safe-area-inset-top, 44px)" }} className="shrink-0" />}
 
+            {/* ── Sticky top pill buttons ───────────────────────────────────── */}
+            <div className="shrink-0 px-4 pb-3 pt-2" style={{
+              background: "rgba(255,255,255,0.88)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              borderBottom: "1px solid rgba(0,0,0,0.04)",
+            }}>
+              <div className="flex gap-3 items-center">
+                <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
+                  background: "rgba(249,249,249,0.95)",
+                  border: "1px solid rgba(255,255,255,0.85)",
+                  boxShadow: "0 0 28px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
+                  backdropFilter: "blur(12px)",
+                }}>
+                  <GlobeIcon />
+                  <span className="flex-1 text-left text-[17px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Dream Router 7</span>
+                  <span className="text-[#9da1a7]"><ChevronDown /></span>
+                </button>
+                <button className="flex items-center gap-3 px-4 h-12 rounded-full" style={{
+                  background: "rgba(249,249,249,0.95)",
+                  border: "1px solid rgba(255,255,255,0.85)",
+                  boxShadow: "0 0 28px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
+                  backdropFilter: "blur(12px)",
+                }}>
+                  <MenuIcon />
+                  <div className="w-7 h-7 rounded-full border-2 border-[#0073f1] overflow-hidden flex items-center justify-center"
+                    style={{ background: "linear-gradient(135deg,#60a5fa,#818cf8)" }}>
+                    <span className="text-white text-[11px] font-bold" style={{ fontFamily: "'Google Sans', sans-serif" }}>KP</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
-              <div className="px-4 pt-6 pb-4 flex flex-col gap-4">
-
-                {/* ── Top two iOS pill buttons ─────────────────────────────── */}
-                <div className="flex gap-3 items-center">
-                  <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
-                    background: "rgba(249,249,249,0.95)",
-                    border: "1px solid rgba(255,255,255,0.85)",
-                    boxShadow: "0 0 28px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
-                    backdropFilter: "blur(12px)",
-                  }}>
-                    <GlobeIcon />
-                    <span className="flex-1 text-left text-[17px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Dream Router 7</span>
-                    <span className="text-[#9da1a7]"><ChevronDown /></span>
-                  </button>
-                  <button className="flex items-center gap-3 px-4 h-12 rounded-full" style={{
-                    background: "rgba(249,249,249,0.95)",
-                    border: "1px solid rgba(255,255,255,0.85)",
-                    boxShadow: "0 0 28px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)",
-                    backdropFilter: "blur(12px)",
-                  }}>
-                    <MenuIcon />
-                    <div className="w-7 h-7 rounded-full border-2 border-[#0073f1] overflow-hidden flex items-center justify-center"
-                      style={{ background: "linear-gradient(135deg,#60a5fa,#818cf8)" }}>
-                      <span className="text-white text-[11px] font-bold" style={{ fontFamily: "'Google Sans', sans-serif" }}>KP</span>
-                    </div>
-                  </button>
-                </div>
+              <div className="px-4 pt-4 pb-4 flex flex-col gap-4">
 
                 {/* ── Network status banner ────────────────────────────────── */}
                 <div className="rounded-2xl p-4 flex gap-3 items-start"
