@@ -191,10 +191,10 @@ const BoxIcon = () => (
 
 // ── Pulse dot ─────────────────────────────────────────────────────────────────
 const PulseDot = ({ color = "#22c55e" }: { color?: string }) => (
-  <div className="relative flex items-center justify-center w-4 h-4">
+  <div className="relative flex items-center justify-center w-4 h-4" style={{ zIndex: 1 }}>
     <div className="absolute w-4 h-4 rounded-full opacity-20 animate-ping"
-      style={{ animationDuration: "2.8s", background: color }} />
-    <div className="w-2 h-2 rounded-full relative z-10" style={{ background: color }} />
+      style={{ animationDuration: "2.8s", background: color, zIndex: 1 }} />
+    <div className="w-2 h-2 rounded-full" style={{ background: color, position: "relative", zIndex: 1 }} />
   </div>
 );
 
@@ -365,10 +365,8 @@ export default function Home() {
             <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
 
               {/* ── Sticky top pill buttons ─────────────────────────────────── */}
-              <div className="sticky top-0 z-10 px-4 pt-3 pb-3" style={{
-                background: "rgba(255,255,255,0.75)",
-                backdropFilter: "blur(24px)",
-                WebkitBackdropFilter: "blur(24px)",
+              <div className="sticky top-0 z-50 px-4 pt-6 pb-4" style={{
+                background: "#ffffff",
               }}>
                 <div className="flex gap-3 items-center">
                   <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
