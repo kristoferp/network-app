@@ -685,7 +685,7 @@ export default function Home() {
                         <span style={{
                           fontSize: 10,
                           fontWeight: active ? 600 : 400,
-                          color: active ? "#0066FC" : "#111111",
+                          color: active ? "#0066FC" : "#8E8E93",
                           letterSpacing: 0.1,
                           fontFamily: "Google Sans, sans-serif",
                           lineHeight: 1,
