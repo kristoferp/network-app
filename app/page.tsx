@@ -679,13 +679,14 @@ export default function Home() {
                           background: active ? "rgba(0,0,0,0.06)" : "transparent",
                           transition: "background 0.18s",
                         }}>
-                        <div style={{ width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <div style={{ width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center", opacity: active ? 1 : 0.35 }}>
                           <Icon color={active ? "#0066FC" : "#111111"} />
                         </div>
                         <span style={{
                           fontSize: 10,
                           fontWeight: active ? 600 : 400,
-                          color: active ? "#0066FC" : "#8E8E93",
+                          color: active ? "#0066FC" : "#111111",
+                          opacity: active ? 1 : 0.35,
                           letterSpacing: 0.1,
                           fontFamily: "Google Sans, sans-serif",
                           lineHeight: 1,
