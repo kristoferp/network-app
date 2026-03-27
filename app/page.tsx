@@ -361,8 +361,10 @@ export default function Home() {
               </div>
             </div>}
 
-            {/* ── Top pill buttons — fixed header outside scroll ────────────── */}
-            <div className="shrink-0 px-4 pt-5 pb-4">
+            {/* ── Top pill buttons — absolute like bottom nav ───────────────── */}
+            <div className="absolute left-0 right-0 px-4 z-20" style={{
+              top: isMobile ? "calc(env(safe-area-inset-top, 0px) + 16px)" : 16,
+            }}>
               <div className="flex gap-3 items-center">
                 <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
                   background: "rgba(249,249,249,0.95)",
@@ -387,9 +389,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Scrollable content */}
+            {/* Scrollable content — full height, content starts below buttons */}
             <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
-              <div className="px-4 pb-4 flex flex-col gap-4" style={{ paddingTop: 16 }}>
+              <div className="px-4 pb-4 flex flex-col gap-4" style={{
+                paddingTop: isMobile ? "calc(env(safe-area-inset-top, 0px) + 88px)" : 88,
+              }}>
 
                 {/* ── Network status banner ────────────────────────────────── */}
                 <div className="rounded-2xl p-4 flex gap-3 items-start"
