@@ -654,7 +654,7 @@ export default function Home() {
               bottom: isMobile ? "max(24px, env(safe-area-inset-bottom, 24px))" : 20,
               touchAction: "none",
             }}>
-              <div className="flex items-center justify-around relative"
+              <div className="flex items-center justify-center gap-1 relative"
                 style={{
                   height: 72,
                   background: "rgba(255,255,255,0.82)",
@@ -668,7 +668,7 @@ export default function Home() {
                   const active = activeTab === id;
                   const isHome = id === "home";
                   return (
-                    <button key={id} className="flex items-center justify-center flex-1" onClick={() => setActiveTab(id)}
+                    <button key={id} className="flex items-center justify-center" onClick={() => setActiveTab(id)}
                       aria-label={label}>
                       <div className="flex flex-col items-center justify-center gap-1.5"
                         style={{
