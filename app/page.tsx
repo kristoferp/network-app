@@ -361,9 +361,10 @@ export default function Home() {
               </div>
             </div>}
 
-            {/* ── Top pill buttons — absolute like bottom nav ───────────────── */}
+            {/* ── Top pill buttons — absolute, no scroll on touch ───────────── */}
             <div className="absolute left-0 right-0 px-4 z-20" style={{
               top: isMobile ? "calc(env(safe-area-inset-top, 0px) + 60px)" : 60,
+              touchAction: "none",
             }}>
               <div className="flex gap-3 items-center">
                 <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
@@ -389,10 +390,10 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Scrollable content — full height, content starts below buttons */}
-            <div className="flex-1 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
+            {/* Scrollable content — full height, only this area scrolls */}
+            <div className="absolute inset-0 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
               <div className="px-4 pb-4 flex flex-col gap-4" style={{
-                paddingTop: isMobile ? "calc(env(safe-area-inset-top, 0px) + 144px)" : 84,
+                paddingTop: isMobile ? "calc(env(safe-area-inset-top, 0px) + 144px)" : 140,
               }}>
 
                 {/* ── Network status banner ────────────────────────────────── */}
@@ -654,6 +655,7 @@ export default function Home() {
             {/* ── Floating glass tab bar ───────────────────────────────────── */}
             <div className="absolute left-0 right-0 px-7" style={{
               bottom: isMobile ? "max(24px, env(safe-area-inset-bottom, 24px))" : 20,
+              touchAction: "none",
             }}>
               <div className="flex items-center justify-around relative"
                 style={{
