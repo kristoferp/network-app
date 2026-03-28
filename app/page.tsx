@@ -174,8 +174,12 @@ const GearIcon = ({ color = "#1c1c1e" }: { color?: string }) => (
   </svg>
 );
 const NetIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="14" width="5" height="7" rx="1"/><rect x="9.5" y="9" width="5" height="12" rx="1"/><rect x="17" y="4" width="5" height="17" rx="1"/>
+  <svg width="22" height="18" viewBox="0 0 32 26" fill="none">
+    <rect x="11" y="0" width="10" height="8" rx="2" fill="#22c55e"/>
+    <line x1="16" y1="8" x2="6" y2="18" stroke="#22c55e" strokeWidth="1.5"/>
+    <line x1="16" y1="8" x2="26" y2="18" stroke="#22c55e" strokeWidth="1.5"/>
+    <rect x="1" y="18" width="10" height="8" rx="2" fill="#22c55e"/>
+    <rect x="21" y="18" width="10" height="8" rx="2" fill="#22c55e"/>
   </svg>
 );
 const WarnIcon = () => (
@@ -437,18 +441,11 @@ export default function Home() {
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Internet</p>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
-                    {/* Network topology icon — color follows status */}
-                    <svg width="32" height="26" viewBox="0 0 32 26" fill="none">
-                      <rect x="11" y="0" width="10" height="8" rx="2" fill={cfg.internet.color}/>
-                      <line x1="16" y1="8" x2="6" y2="18" stroke={cfg.internet.color} strokeWidth="1.5"/>
-                      <line x1="16" y1="8" x2="26" y2="18" stroke={cfg.internet.color} strokeWidth="1.5"/>
-                      <rect x="1" y="18" width="10" height="8" rx="2" fill={cfg.internet.color}/>
-                      <rect x="21" y="18" width="10" height="8" rx="2" fill={cfg.internet.color}/>
-                    </svg>
                     <div className="flex items-center gap-1.5">
                       <PulseDot color={cfg.internet.color} />
                       <span className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.internet.label}</span>
                     </div>
+                    <p className="text-[11px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.internet.sub}</p>
                   </div>
                   {/* WiFi */}
                   <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
