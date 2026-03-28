@@ -257,7 +257,7 @@ export default function Home() {
       banner: { bg: "#ecfff3", border: "#d1f5e0", Icon: NetIcon, title: "Your network is running smoothly", sub: "3 devices connected · 1.1 Mbps download" },
       internet: { label: "Online",  color: "#22c55e", sub: "Telenor" },
       wifi:     { label: "Active",  color: "#22c55e", sub: "UniFi" },
-      devices:  { count: 3, sub: "Connected", warn: false, color: "#0073f1" },
+      devices:  { count: 3, sub: "Connected", warn: false, color: "#22c55e" },
       qualityBar: [
         { w: "52%", bg: "#22c55e" }, { w: "16%", bg: "#ef4444" },
         { w: "7%",  bg: "#fb923c" }, { w: "1",   bg: "#22c55e" },
