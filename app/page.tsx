@@ -323,7 +323,7 @@ export default function Home() {
       qualityDot: "#ef4444",
     },
   } satisfies Record<NetworkStatus, {
-    banner: { bg: string; border: string; Icon: React.ComponentType; title: string; sub: string };
+    banner: { bg: string; border: string; Icon: React.ComponentType<{ color?: string }>; iconColor: string; title: string; sub: string };
     internet: { label: string; color: string; sub: string };
     wifi: { label: string; color: string; sub: string };
     devices: { count: number; sub: string; warn: boolean; color: string };
