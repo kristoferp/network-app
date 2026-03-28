@@ -442,7 +442,7 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: scrolled ? "center" : "flex-start",
-                gap: 10,
+                gap: scrolled ? 0 : 10,
                 padding: scrolled ? 0 : "0 14px",
                 overflow: "hidden",
                 transition: [
@@ -456,15 +456,17 @@ export default function Home() {
                 touchAction: "none",
               }}
             >
-              <div style={{ flexShrink: 0 }}><cfg.banner.Icon /></div>
+              <div style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}><cfg.banner.Icon /></div>
               <p style={{
                 fontFamily: "'Google Sans', sans-serif",
                 fontSize: 14,
                 fontWeight: 600,
                 color: "#0b182c",
                 whiteSpace: "nowrap",
+                overflow: "hidden",
+                maxWidth: scrolled ? 0 : 400,
                 opacity: scrolled ? 0 : 1,
-                transition: "opacity 0.15s",
+                transition: "opacity 0.15s, max-width 0.35s cubic-bezier(0.34,1.2,0.64,1)",
                 pointerEvents: "none",
               }}>{cfg.banner.title}</p>
             </div>
