@@ -263,6 +263,7 @@ export default function Home() {
   const [activityOpen, setActivityOpen] = useState(true);
   const [liveOpen, setLiveOpen] = useState(true);
   const [throughputTab, setThroughputTab] = useState<"live" | "24h">("live");
+  const [scrolled, setScrolled] = useState(false);
   const [netStatus, setNetStatus] = useState<NetworkStatus>("healthy");
   const [isMobile, setIsMobile] = useState(false);
   const { dl, ul, dlVal, ulVal } = useWaves(netStatus);
@@ -425,21 +426,44 @@ export default function Home() {
               </div>
             </div>
 
+            {/* ── Status FAB — floats on left when scrolled ────────────── */}
+            <div
+              style={{
+                position: "absolute",
+                left: 16,
+                top: isMobile ? "calc(env(safe-area-inset-top, 0px) + 80px)" : 124,
+                zIndex: 25,
+                width: 48,
+                height: 48,
+                borderRadius: "50%",
+                background: cfg.banner.bg,
+                border: `1.5px solid ${cfg.banner.border}`,
+                boxShadow: "0 4px 18px rgba(0,0,0,0.13)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transform: scrolled ? "scale(1)" : "scale(0.4)",
+                opacity: scrolled ? 1 : 0,
+                transition: "transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s, background 0.6s, border-color 0.6s",
+                pointerEvents: scrolled ? "auto" : "none",
+                touchAction: "none",
+              }}
+            >
+              <cfg.banner.Icon />
+            </div>
+
             {/* Scrollable content — full height, only this area scrolls */}
-            <div className="absolute inset-0 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}>
+            <div className="absolute inset-0 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}
+              onScroll={e => setScrolled((e.currentTarget as HTMLDivElement).scrollTop > 60)}>
               <div className="px-4 pb-4 flex flex-col gap-4" style={{
                 paddingTop: isMobile ? "calc(env(safe-area-inset-top, 0px) + 88px)" : 140,
               }}>
 
-                {/* ── Network status banner ────────────────────────────────── */}
-                <div className="rounded-2xl p-4 flex gap-3 items-start"
+                {/* ── Network status banner — title only ───────────────────── */}
+                <div className="rounded-2xl px-4 py-3 flex gap-3 items-center"
                   style={{ background: cfg.banner.bg, border: `1px solid ${cfg.banner.border}`, transition: "background 0.6s, border-color 0.6s" }}>
-                  <div className="shrink-0 mt-0.5"><cfg.banner.Icon /></div>
-                  <div className="flex-1">
-                    <p className="text-[15px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.banner.title}</p>
-                    <div className="h-px my-2" style={{ background: cfg.banner.border }} />
-                    <p className="text-[13px] text-[#5f6369]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.banner.sub}</p>
-                  </div>
+                  <div className="shrink-0"><cfg.banner.Icon /></div>
+                  <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.banner.title}</p>
                 </div>
 
                 {/* ── Status tiles ─────────────────────────────────────────── */}
