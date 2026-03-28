@@ -58,6 +58,18 @@ function fmtTot(raw: number, status: NetworkStatus = "healthy"): string {
   return `${mb} MB`;
 }
 
+// ── Static 24h historical data (fixed snapshot, not animated) ─────────────────
+const STATIC_DL_24H: number[] = [
+  8,7,6,5,5,4,4,5,6,9,14,22,35,48,58,62,60,55,52,57,64,68,65,60,
+  54,50,46,44,42,43,45,48,52,56,58,59,57,54,50,47,45,44,43,42,41,40,
+  41,43,46,50,55,60,63,64,62,58,53,48,43,39,35,31,27,24,21,18,15,13,11,9,8,7,
+];
+const STATIC_UL_24H: number[] = [
+  3,3,2,2,2,2,2,2,3,4,6,9,13,18,22,24,23,21,20,22,25,27,26,24,
+  21,19,18,17,16,17,18,19,21,23,24,24,23,22,20,19,18,17,17,16,16,16,
+  16,17,18,20,22,24,25,26,25,23,21,19,17,15,13,11,9,8,7,6,5,4,4,3,3,3,
+];
+
 // ── Animated chart hook ───────────────────────────────────────────────────────
 function useWaves(status: NetworkStatus) {
   const [dl, setDl] = useState<number[]>([]);
@@ -225,6 +237,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("home");
   const [qualityOpen, setQualityOpen] = useState(true);
   const [activityOpen, setActivityOpen] = useState(true);
+  const [liveOpen, setLiveOpen] = useState(true);
   const [netStatus, setNetStatus] = useState<NetworkStatus>("healthy");
   const [isMobile, setIsMobile] = useState(false);
   const { dl, ul, dlVal, ulVal } = useWaves(netStatus);
@@ -452,18 +465,22 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* ── Internet activity card (collapsible, animated) ────────── */}
+                {/* ── Live Throughput card (animated moving chart) ──────────── */}
                 <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
                   <button className="flex items-center justify-between w-full px-4 pt-4"
-                    onClick={() => setActivityOpen(o => !o)}>
-                    <div className="flex items-center gap-1">
-                      <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Internet activity</span>
-                      <span className="text-[14px] text-[#5f6369]" style={{ fontFamily: "'Google Sans', sans-serif" }}> 24h</span>
+                    onClick={() => setLiveOpen(o => !o)}>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Live Throughput</span>
+                      {/* live pulse dot */}
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: "#22c55e" }}/>
+                        <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#22c55e" }}/>
+                      </span>
                     </div>
-                    <span className="text-[#9da1a7]"><ChevronDown rotated={activityOpen} /></span>
+                    <span className="text-[#9da1a7]"><ChevronDown rotated={liveOpen} /></span>
                   </button>
 
-                  {activityOpen ? (
+                  {liveOpen ? (
                     <>
                       <div className="flex items-center justify-between px-4">
                         <div className="flex items-center gap-3">
@@ -485,48 +502,41 @@ export default function Home() {
                         <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{fmtTot(dlVal, netStatus)}</span>
                       </div>
 
-                      {/* Animated SVG chart — full card width, 16px inset each side */}
+                      {/* Animated live SVG chart */}
                       {dl.length > 1 && (
                         <svg width="100%" height="158" viewBox="0 0 390 158" preserveAspectRatio="none">
                           <defs>
-                            <linearGradient id="dlGrad" x1="0" y1="0" x2="0" y2="1">
+                            <linearGradient id="dlGradLive" x1="0" y1="0" x2="0" y2="1">
                               <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.28"/>
                               <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
                             </linearGradient>
-                            <linearGradient id="ulGrad" x1="0" y1="0" x2="0" y2="1">
+                            <linearGradient id="ulGradLive" x1="0" y1="0" x2="0" y2="1">
                               <stop offset="0%" stopColor="#8979ff" stopOpacity="0.22"/>
                               <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
                             </linearGradient>
-                            <clipPath id="chartClip">
+                            <clipPath id="chartClipLive">
                               <rect x={CL} y={CT} width={CR - CL} height={CB - CT + 2}/>
                             </clipPath>
                           </defs>
-                          {/* Horizontal grid */}
                           {[CT, CT + (CB-CT)*0.33, CT + (CB-CT)*0.66, CB].map((yy, i) => (
                             <line key={i} x1={CL} y1={yy} x2={CR} y2={yy} stroke="#E7E7E7" strokeWidth="1"/>
                           ))}
-                          {/* Vertical grid */}
                           {[0,1,2,3,4].map(i => (
                             <line key={i} x1={CL + i*(CR-CL)/4} y1={CT} x2={CL + i*(CR-CL)/4} y2={CB} stroke="#E7E7E7" strokeWidth="1" strokeDasharray="3,3"/>
                           ))}
-                          {/* DL */}
-                          <path d={smoothPath(dl, true)} fill="url(#dlGrad)" clipPath="url(#chartClip)"/>
-                          <path d={smoothPath(dl)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClip)"/>
-                          {/* UL */}
-                          <path d={smoothPath(ul, true)} fill="url(#ulGrad)" clipPath="url(#chartClip)"/>
-                          <path d={smoothPath(ul)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClip)"/>
-                          {/* Y labels — overlaid inside chart left edge */}
+                          <path d={smoothPath(dl, true)} fill="url(#dlGradLive)" clipPath="url(#chartClipLive)"/>
+                          <path d={smoothPath(dl)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipLive)"/>
+                          <path d={smoothPath(ul, true)} fill="url(#ulGradLive)" clipPath="url(#chartClipLive)"/>
+                          <path d={smoothPath(ul)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipLive)"/>
                           <text x={CL + 4} y={CT + 10} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">kbps</text>
                           <text x={CL + 4} y={CT + (CB-CT)*0.33 + 4} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">20</text>
                           <text x={CL + 4} y={CT + (CB-CT)*0.66 + 4} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">10</text>
                           <text x={CL + 4} y={CB - 3} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">0</text>
-                          {/* X labels */}
-                          {["10:00","16:00","22:00","4:00","Now"].map((lbl, i) => (
+                          {["0s","15s","30s","45s","Now"].map((lbl, i) => (
                             <text key={i} x={CL + i*(CR-CL)/4} y={CB + 14} textAnchor="middle" fontSize="10" fill="#9da1a7" fontFamily="Google Sans, sans-serif">{lbl}</text>
                           ))}
                         </svg>
                       )}
-
                       <div className="flex justify-end px-4 pb-4">
                         <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>See all</button>
                       </div>
@@ -545,6 +555,97 @@ export default function Home() {
                         <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
                           <span className="text-[#8979ff]">UL</span>
                           <span className="text-[#9da1a7]"> {fmtKb(ulVal, netStatus)}</span>
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* ── Internet activity card (static 24h snapshot) ──────────── */}
+                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
+                  <button className="flex items-center justify-between w-full px-4 pt-4"
+                    onClick={() => setActivityOpen(o => !o)}>
+                    <div className="flex items-center gap-1">
+                      <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Internet activity</span>
+                      <span className="text-[14px] text-[#5f6369]" style={{ fontFamily: "'Google Sans', sans-serif" }}> 24h</span>
+                    </div>
+                    <span className="text-[#9da1a7]"><ChevronDown rotated={activityOpen} /></span>
+                  </button>
+
+                  {activityOpen ? (
+                    <>
+                      <div className="flex items-center justify-between px-4">
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
+                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                              <span className="text-[#0fc7f3]">DL</span>
+                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}> 854 kb</span>
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
+                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                              <span className="text-[#8979ff]">UL</span>
+                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}> 854 kb</span>
+                            </span>
+                          </div>
+                        </div>
+                        <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>1.1 MB</span>
+                      </div>
+
+                      {/* Static 24h chart */}
+                      <svg width="100%" height="158" viewBox="0 0 390 158" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="dlGradStatic" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.28"/>
+                            <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
+                          </linearGradient>
+                          <linearGradient id="ulGradStatic" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#8979ff" stopOpacity="0.22"/>
+                            <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
+                          </linearGradient>
+                          <clipPath id="chartClipStatic">
+                            <rect x={CL} y={CT} width={CR - CL} height={CB - CT + 2}/>
+                          </clipPath>
+                        </defs>
+                        {[CT, CT + (CB-CT)*0.33, CT + (CB-CT)*0.66, CB].map((yy, i) => (
+                          <line key={i} x1={CL} y1={yy} x2={CR} y2={yy} stroke="#E7E7E7" strokeWidth="1"/>
+                        ))}
+                        {[0,1,2,3,4].map(i => (
+                          <line key={i} x1={CL + i*(CR-CL)/4} y1={CT} x2={CL + i*(CR-CL)/4} y2={CB} stroke="#E7E7E7" strokeWidth="1" strokeDasharray="3,3"/>
+                        ))}
+                        <path d={smoothPath(STATIC_DL_24H, true)} fill="url(#dlGradStatic)" clipPath="url(#chartClipStatic)"/>
+                        <path d={smoothPath(STATIC_DL_24H)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipStatic)"/>
+                        <path d={smoothPath(STATIC_UL_24H, true)} fill="url(#ulGradStatic)" clipPath="url(#chartClipStatic)"/>
+                        <path d={smoothPath(STATIC_UL_24H)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipStatic)"/>
+                        <text x={CL + 4} y={CT + 10} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">kbps</text>
+                        <text x={CL + 4} y={CT + (CB-CT)*0.33 + 4} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">20</text>
+                        <text x={CL + 4} y={CT + (CB-CT)*0.66 + 4} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">10</text>
+                        <text x={CL + 4} y={CB - 3} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">0</text>
+                        {["10:00","16:00","22:00","4:00","Now"].map((lbl, i) => (
+                          <text key={i} x={CL + i*(CR-CL)/4} y={CB + 14} textAnchor="middle" fontSize="10" fill="#9da1a7" fontFamily="Google Sans, sans-serif">{lbl}</text>
+                        ))}
+                      </svg>
+
+                      <div className="flex justify-end px-4 pb-4">
+                        <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>See all</button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex items-center gap-3 px-4 pb-4">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
+                        <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                          <span className="text-[#0fc7f3]">DL</span>
+                          <span className="text-[#9da1a7]"> 854 kb</span>
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
+                        <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                          <span className="text-[#8979ff]">UL</span>
+                          <span className="text-[#9da1a7]"> 854 kb</span>
                         </span>
                       </div>
                     </div>
