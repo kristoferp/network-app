@@ -426,45 +426,55 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ── Status FAB — floats on left when scrolled ────────────── */}
+            {/* ── Status banner — morphs into FAB on scroll ────────────── */}
             <div
               style={{
                 position: "absolute",
                 left: 16,
-                top: isMobile ? "calc(env(safe-area-inset-top, 0px) + 80px)" : 124,
+                top: isMobile ? "calc(env(safe-area-inset-top, 0px) + 88px)" : 140,
                 zIndex: 25,
-                width: 48,
+                width: scrolled ? 48 : "calc(100% - 32px)",
                 height: 48,
-                borderRadius: "50%",
+                borderRadius: scrolled ? 24 : 14,
                 background: cfg.banner.bg,
-                border: `1.5px solid ${cfg.banner.border}`,
-                boxShadow: "0 4px 18px rgba(0,0,0,0.13)",
+                border: `1px solid ${cfg.banner.border}`,
+                boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,0.13)" : "none",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                transform: scrolled ? "scale(1)" : "scale(0.4)",
-                opacity: scrolled ? 1 : 0,
-                transition: "transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s, background 0.6s, border-color 0.6s",
-                pointerEvents: scrolled ? "auto" : "none",
+                justifyContent: scrolled ? "center" : "flex-start",
+                gap: 10,
+                padding: scrolled ? 0 : "0 14px",
+                overflow: "hidden",
+                transition: [
+                  "width 0.4s cubic-bezier(0.34,1.2,0.64,1)",
+                  "border-radius 0.4s cubic-bezier(0.34,1.2,0.64,1)",
+                  "box-shadow 0.3s",
+                  "background 0.6s",
+                  "border-color 0.6s",
+                  "padding 0.35s",
+                ].join(", "),
                 touchAction: "none",
               }}
             >
-              <cfg.banner.Icon />
+              <div style={{ flexShrink: 0 }}><cfg.banner.Icon /></div>
+              <p style={{
+                fontFamily: "'Google Sans', sans-serif",
+                fontSize: 14,
+                fontWeight: 600,
+                color: "#0b182c",
+                whiteSpace: "nowrap",
+                opacity: scrolled ? 0 : 1,
+                transition: "opacity 0.15s",
+                pointerEvents: "none",
+              }}>{cfg.banner.title}</p>
             </div>
 
             {/* Scrollable content — full height, only this area scrolls */}
             <div className="absolute inset-0 overflow-y-auto" style={{ paddingBottom: 110, background: "#ffffff" }}
               onScroll={e => setScrolled((e.currentTarget as HTMLDivElement).scrollTop > 60)}>
               <div className="px-4 pb-4 flex flex-col gap-4" style={{
-                paddingTop: isMobile ? "calc(env(safe-area-inset-top, 0px) + 88px)" : 140,
+                paddingTop: isMobile ? "calc(env(safe-area-inset-top, 0px) + 152px)" : 204,
               }}>
-
-                {/* ── Network status banner — title only ───────────────────── */}
-                <div className="rounded-2xl px-4 py-3 flex gap-3 items-center"
-                  style={{ background: cfg.banner.bg, border: `1px solid ${cfg.banner.border}`, transition: "background 0.6s, border-color 0.6s" }}>
-                  <div className="shrink-0"><cfg.banner.Icon /></div>
-                  <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.banner.title}</p>
-                </div>
 
                 {/* ── Status tiles ─────────────────────────────────────────── */}
                 <div className="flex gap-2">
