@@ -495,8 +495,8 @@ export default function Home() {
                     <div className="flex items-center gap-2">
                       <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Live Throughput</span>
                       <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: "#22c55e" }}/>
-                        <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#22c55e" }}/>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: netStatus === "healthy" ? "#22c55e" : netStatus === "issues" ? "#f59e0b" : "#ef4444" }}/>
+                        <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: netStatus === "healthy" ? "#22c55e" : netStatus === "issues" ? "#f59e0b" : "#ef4444" }}/>
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
