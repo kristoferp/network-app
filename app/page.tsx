@@ -13,22 +13,27 @@ function dlWave(t: number, status: NetworkStatus): number {
   if (status === "offline") return Math.max(0, 1.2 + 0.8 * Math.sin(t * 0.04));
   if (status === "issues") return Math.max(4, Math.min(42,
     20 + 9 * Math.sin(t * 0.055) + 5 * Math.sin(t * 0.14 + 1.1)
-       + 6 * Math.sin(t * 0.22 + 0.9) + 2 * Math.sin(t * 0.67 + 0.7)
+       + 6 * Math.sin(t * 0.22 + 0.9) + 4 * Math.sin(t * 0.67 + 0.7)
+       + 3 * Math.sin(t * 1.1 + 0.4)  + 2 * Math.sin(t * 1.8 + 1.3)
   ));
   return Math.max(10, Math.min(82,
-    46 + 14 * Math.sin(t * 0.055) + 7 * Math.sin(t * 0.14 + 1.1)
-       + 3.5 * Math.sin(t * 0.32 + 2.3) + 1.5 * Math.sin(t * 0.67 + 0.7)
+    46 + 14 * Math.sin(t * 0.055) + 8 * Math.sin(t * 0.14 + 1.1)
+       + 6  * Math.sin(t * 0.32 + 2.3) + 5 * Math.sin(t * 0.67 + 0.7)
+       + 4  * Math.sin(t * 1.1  + 0.5) + 3 * Math.sin(t * 1.7  + 1.9)
+       + 2  * Math.sin(t * 2.4  + 0.3) + 1.5 * Math.sin(t * 3.1 + 2.1)
   ));
 }
 function ulWave(t: number, status: NetworkStatus): number {
   if (status === "offline") return Math.max(0, 0.6 + 0.4 * Math.sin(t * 0.035 + 1));
   if (status === "issues") return Math.max(2, Math.min(16,
     8 + 3.5 * Math.sin(t * 0.075 + 2.5) + 2 * Math.sin(t * 0.24 + 1.2)
-      + 2.5 * Math.sin(t * 0.19 + 0.3)
+      + 2.5 * Math.sin(t * 0.19 + 0.3)  + 2 * Math.sin(t * 0.9  + 0.8)
+      + 1.5 * Math.sin(t * 1.5  + 1.4)
   ));
   return Math.max(5, Math.min(28,
-    17 + 5 * Math.sin(t * 0.075 + 2.5) + 2.5 * Math.sin(t * 0.24 + 1.2)
-       + 1.2 * Math.sin(t * 0.55 + 0.4)
+    17 + 5 * Math.sin(t * 0.075 + 2.5) + 3 * Math.sin(t * 0.24 + 1.2)
+       + 2.5 * Math.sin(t * 0.55 + 0.4) + 2 * Math.sin(t * 0.9  + 1.7)
+       + 1.8 * Math.sin(t * 1.4  + 0.6) + 1.2 * Math.sin(t * 2.0 + 2.3)
   ));
 }
 function smoothPathCompact(pts: number[], fill?: boolean): string {
