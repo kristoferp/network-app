@@ -569,9 +569,9 @@ export default function Home() {
                                 <clipPath id="clipLive"><rect x="0" y="0" width="390" height="80"/></clipPath>
                               </defs>
                               <path d={smoothPathCompact(dl, true)} fill="url(#dlGradLive)" clipPath="url(#clipLive)"/>
-                              <path d={smoothPathCompact(dl)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipLive)"/>
+                              <path d={smoothPathCompact(dl)} fill="none" stroke="#0fc7f3" strokeWidth="1.1" strokeLinecap="round" clipPath="url(#clipLive)"/>
                               <path d={smoothPathCompact(ul, true)} fill="url(#ulGradLive)" clipPath="url(#clipLive)"/>
-                              <path d={smoothPathCompact(ul)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipLive)"/>
+                              <path d={smoothPathCompact(ul)} fill="none" stroke="#8979ff" strokeWidth="1.1" strokeLinecap="round" clipPath="url(#clipLive)"/>
                             </svg>
                           )}
                         </div>
