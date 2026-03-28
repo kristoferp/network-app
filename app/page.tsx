@@ -552,67 +552,79 @@ export default function Home() {
                       </div>
 
                       {/* Fixed-height chart area — same height for both tabs */}
-                      <div style={{ height: 140, position: "relative" }}>
-                        {/* Live tab: animated, no grid, curves fill full height */}
-                        <div style={{ position: "absolute", inset: 0, opacity: throughputTab === "live" ? 1 : 0, transition: "opacity 0.25s", pointerEvents: throughputTab === "live" ? "auto" : "none" }}>
-                          {dl.length > 1 && (
-                            <svg width="100%" height="140" viewBox="0 0 390 80" preserveAspectRatio="none" style={{ display: "block" }}>
-                              <defs>
-                                <linearGradient id="dlGradLive" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.3"/>
-                                  <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
-                                </linearGradient>
-                                <linearGradient id="ulGradLive" x1="0" y1="0" x2="0" y2="1">
-                                  <stop offset="0%" stopColor="#8979ff" stopOpacity="0.25"/>
-                                  <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
-                                </linearGradient>
-                                <clipPath id="clipLive"><rect x="0" y="0" width="390" height="80"/></clipPath>
-                              </defs>
-                              <path d={smoothPathCompact(dl, true)} fill="url(#dlGradLive)" clipPath="url(#clipLive)"/>
-                              <path d={smoothPathCompact(dl)} fill="none" stroke="#0fc7f3" strokeWidth="1.1" strokeLinecap="round" clipPath="url(#clipLive)"/>
-                              <path d={smoothPathCompact(ul, true)} fill="url(#ulGradLive)" clipPath="url(#clipLive)"/>
-                              <path d={smoothPathCompact(ul)} fill="none" stroke="#8979ff" strokeWidth="1.1" strokeLinecap="round" clipPath="url(#clipLive)"/>
-                            </svg>
-                          )}
-                        </div>
-                        {/* 24h tab: static, uses smoothPath with proper CL/CT/CR/CB margins + axis labels */}
-                        <div style={{ position: "absolute", inset: 0, opacity: throughputTab === "24h" ? 1 : 0, transition: "opacity 0.25s", pointerEvents: throughputTab === "24h" ? "auto" : "none" }}>
-                          <svg width="100%" height="140" viewBox="0 0 390 152" preserveAspectRatio="none" style={{ display: "block" }}>
-                            <defs>
-                              <linearGradient id="dlGradStatic" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.28"/>
-                                <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
-                              </linearGradient>
-                              <linearGradient id="ulGradStatic" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0%" stopColor="#8979ff" stopOpacity="0.22"/>
-                                <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
-                              </linearGradient>
-                              <clipPath id="clipStatic"><rect x={CL} y={CT} width={CR - CL} height={CB - CT + 2}/></clipPath>
-                            </defs>
-                            {/* Grid lines */}
-                            {[CT, CT+(CB-CT)*0.33, CT+(CB-CT)*0.66, CB].map((yy, i) => (
-                              <line key={i} x1={CL} y1={yy} x2={CR} y2={yy} stroke="#F0F0F0" strokeWidth="1"/>
-                            ))}
-                            {[0,1,2,3,4].map(i => (
-                              <line key={i} x1={CL+i*(CR-CL)/4} y1={CT} x2={CL+i*(CR-CL)/4} y2={CB} stroke="#F0F0F0" strokeWidth="1" strokeDasharray="3,3"/>
-                            ))}
-                            {/* Chart paths */}
-                            <path d={smoothPath(STATIC_DL_24H, true)} fill="url(#dlGradStatic)" clipPath="url(#clipStatic)"/>
-                            <path d={smoothPath(STATIC_DL_24H)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipStatic)"/>
-                            <path d={smoothPath(STATIC_UL_24H, true)} fill="url(#ulGradStatic)" clipPath="url(#clipStatic)"/>
-                            <path d={smoothPath(STATIC_UL_24H)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipStatic)"/>
-                            {/* Y-axis labels */}
-                            <text x={CL+2} y={CT+9} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">kbps</text>
-                            <text x={CL+2} y={CT+(CB-CT)*0.33+4} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">20</text>
-                            <text x={CL+2} y={CT+(CB-CT)*0.66+4} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">10</text>
-                            <text x={CL+2} y={CB-2} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">0</text>
-                            {/* X-axis labels */}
-                            {["10:00","16:00","22:00","4:00","Now"].map((lbl, i) => (
-                              <text key={i} x={CL + i*(CR-CL)/4} y={CB+14} textAnchor="middle" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">{lbl}</text>
-                            ))}
-                          </svg>
-                        </div>
-                      </div>
+                      {(() => {
+                        // 24h chart uses tighter bounds so grid lines are closer together
+                        const SL=18, SR=372, ST=6, SB=78;
+                        const sp = (pts: number[], fill?: boolean) => {
+                          const W=SR-SL, H=SB-ST, step=W/(pts.length-1);
+                          const x=(i:number)=>SL+i*step, y=(v:number)=>SB-(v/100)*H;
+                          let d=`M${x(0)},${y(pts[0])}`;
+                          for(let i=0;i<pts.length-1;i++){const mx=(x(i)+x(i+1))/2; d+=` C${mx},${y(pts[i])} ${mx},${y(pts[i+1])} ${x(i+1)},${y(pts[i+1])}`;}
+                          if(fill) d+=` L${x(pts.length-1)},${SB} L${x(0)},${SB} Z`;
+                          return d;
+                        };
+                        // viewBox height: SB + 14 (x-labels) + 4 = 96
+                        const VH = SB + 18;
+                        return (
+                          <div style={{ height: 110, position: "relative" }}>
+                            {/* Live tab */}
+                            <div style={{ position: "absolute", inset: 0, opacity: throughputTab === "live" ? 1 : 0, transition: "opacity 0.25s", pointerEvents: throughputTab === "live" ? "auto" : "none" }}>
+                              {dl.length > 1 && (
+                                <svg width="100%" height="110" viewBox="0 0 390 80" preserveAspectRatio="none" style={{ display: "block" }}>
+                                  <defs>
+                                    <linearGradient id="dlGradLive" x1="0" y1="0" x2="0" y2="1">
+                                      <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.3"/>
+                                      <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
+                                    </linearGradient>
+                                    <linearGradient id="ulGradLive" x1="0" y1="0" x2="0" y2="1">
+                                      <stop offset="0%" stopColor="#8979ff" stopOpacity="0.25"/>
+                                      <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
+                                    </linearGradient>
+                                    <clipPath id="clipLive"><rect x="0" y="0" width="390" height="80"/></clipPath>
+                                  </defs>
+                                  <path d={smoothPathCompact(dl, true)} fill="url(#dlGradLive)" clipPath="url(#clipLive)"/>
+                                  <path d={smoothPathCompact(dl)} fill="none" stroke="#0fc7f3" strokeWidth="1.45" strokeLinecap="round" clipPath="url(#clipLive)"/>
+                                  <path d={smoothPathCompact(ul, true)} fill="url(#ulGradLive)" clipPath="url(#clipLive)"/>
+                                  <path d={smoothPathCompact(ul)} fill="none" stroke="#8979ff" strokeWidth="1.45" strokeLinecap="round" clipPath="url(#clipLive)"/>
+                                </svg>
+                              )}
+                            </div>
+                            {/* 24h tab — compact bounds */}
+                            <div style={{ position: "absolute", inset: 0, opacity: throughputTab === "24h" ? 1 : 0, transition: "opacity 0.25s", pointerEvents: throughputTab === "24h" ? "auto" : "none" }}>
+                              <svg width="100%" height="110" viewBox={`0 0 390 ${VH}`} preserveAspectRatio="none" style={{ display: "block" }}>
+                                <defs>
+                                  <linearGradient id="dlGradStatic" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.28"/>
+                                    <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
+                                  </linearGradient>
+                                  <linearGradient id="ulGradStatic" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#8979ff" stopOpacity="0.22"/>
+                                    <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
+                                  </linearGradient>
+                                  <clipPath id="clipStatic"><rect x={SL} y={ST} width={SR-SL} height={SB-ST+2}/></clipPath>
+                                </defs>
+                                {[ST, ST+(SB-ST)*0.33, ST+(SB-ST)*0.66, SB].map((yy,i)=>(
+                                  <line key={i} x1={SL} y1={yy} x2={SR} y2={yy} stroke="#F0F0F0" strokeWidth="1"/>
+                                ))}
+                                {[0,1,2,3,4].map(i=>(
+                                  <line key={i} x1={SL+i*(SR-SL)/4} y1={ST} x2={SL+i*(SR-SL)/4} y2={SB} stroke="#F0F0F0" strokeWidth="1" strokeDasharray="3,3"/>
+                                ))}
+                                <path d={sp(STATIC_DL_24H, true)} fill="url(#dlGradStatic)" clipPath="url(#clipStatic)"/>
+                                <path d={sp(STATIC_DL_24H)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipStatic)"/>
+                                <path d={sp(STATIC_UL_24H, true)} fill="url(#ulGradStatic)" clipPath="url(#clipStatic)"/>
+                                <path d={sp(STATIC_UL_24H)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipStatic)"/>
+                                <text x={SL+2} y={ST+8} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">kbps</text>
+                                <text x={SL+2} y={ST+(SB-ST)*0.33+4} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">20</text>
+                                <text x={SL+2} y={ST+(SB-ST)*0.66+4} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">10</text>
+                                <text x={SL+2} y={SB-2} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">0</text>
+                                {["10:00","16:00","22:00","4:00","Now"].map((lbl,i)=>(
+                                  <text key={i} x={SL+i*(SR-SL)/4} y={SB+13} textAnchor="middle" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">{lbl}</text>
+                                ))}
+                              </svg>
+                            </div>
+                          </div>
+                        );
+                      })()}
                       {/* Bottom padding */}
                       <div style={{ height: 12 }}/>
                     </div>
