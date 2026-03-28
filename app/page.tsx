@@ -629,25 +629,6 @@ export default function Home() {
                           <div key={i} style={{ width: seg.w === "1" ? undefined : seg.w, flex: seg.w === "1" ? 1 : undefined, background: seg.bg, transition: "background 0.6s" }}/>
                         ))}
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Live Throughput</span>
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
-                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                              <span className="text-[#0fc7f3]">DL</span>
-                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}>{fmtKb(dlVal, netStatus)}</span>
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
-                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                              <span className="text-[#8979ff]">UL</span>
-                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}>{fmtKb(ulVal, netStatus)}</span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
                       <div className="flex justify-end">
                         <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>See all</button>
                       </div>
