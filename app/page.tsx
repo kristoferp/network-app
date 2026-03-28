@@ -31,6 +31,18 @@ function ulWave(t: number, status: NetworkStatus): number {
        + 1.2 * Math.sin(t * 0.55 + 0.4)
   ));
 }
+function smoothPathCompact(pts: number[], fill?: boolean): string {
+  const W = 390, H = 76, step = W / (pts.length - 1);
+  const x = (i: number) => i * step;
+  const y = (v: number) => H - (v / 100) * H + 2;
+  let d = `M${x(0)},${y(pts[0])}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const mx = (x(i) + x(i + 1)) / 2;
+    d += ` C${mx},${y(pts[i])} ${mx},${y(pts[i + 1])} ${x(i + 1)},${y(pts[i + 1])}`;
+  }
+  if (fill) d += ` L${x(pts.length - 1)},80 L${x(0)},80 Z`;
+  return d;
+}
 function smoothPath(pts: number[], fill?: boolean): string {
   const W = CR - CL, H = CB - CT, step = W / (pts.length - 1);
   const x = (i: number) => CL + i * step;
@@ -425,11 +437,18 @@ export default function Home() {
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Internet</p>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
+                    {/* Network topology icon — color follows status */}
+                    <svg width="32" height="26" viewBox="0 0 32 26" fill="none">
+                      <rect x="11" y="0" width="10" height="8" rx="2" fill={cfg.internet.color}/>
+                      <line x1="16" y1="8" x2="6" y2="18" stroke={cfg.internet.color} strokeWidth="1.5"/>
+                      <line x1="16" y1="8" x2="26" y2="18" stroke={cfg.internet.color} strokeWidth="1.5"/>
+                      <rect x="1" y="18" width="10" height="8" rx="2" fill={cfg.internet.color}/>
+                      <rect x="21" y="18" width="10" height="8" rx="2" fill={cfg.internet.color}/>
+                    </svg>
                     <div className="flex items-center gap-1.5">
                       <PulseDot color={cfg.internet.color} />
                       <span className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.internet.label}</span>
                     </div>
-                    <p className="text-[11px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.internet.sub}</p>
                   </div>
                   {/* WiFi */}
                   <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
@@ -465,99 +484,51 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* ── Live Throughput card (animated moving chart) ──────────── */}
-                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
-                  <button className="flex items-center justify-between w-full px-4 pt-4"
-                    onClick={() => setLiveOpen(o => !o)}>
+                {/* ── Live Throughput card (always open, compact, no grid) ───── */}
+                <div className="rounded-2xl flex flex-col gap-2" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
+                  <div className="flex items-center justify-between px-4 pt-4">
                     <div className="flex items-center gap-2">
                       <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Live Throughput</span>
-                      {/* live pulse dot */}
                       <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: "#22c55e" }}/>
                         <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#22c55e" }}/>
                       </span>
                     </div>
-                    <span className="text-[#9da1a7]"><ChevronDown rotated={liveOpen} /></span>
-                  </button>
-
-                  {liveOpen ? (
-                    <>
-                      <div className="flex items-center justify-between px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
-                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                              <span className="text-[#0fc7f3]">DL</span>
-                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}>{fmtKb(dlVal, netStatus)}</span>
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
-                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                              <span className="text-[#8979ff]">UL</span>
-                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}>{fmtKb(ulVal, netStatus)}</span>
-                            </span>
-                          </div>
-                        </div>
-                        <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{fmtTot(dlVal, netStatus)}</span>
-                      </div>
-
-                      {/* Animated live SVG chart */}
-                      {dl.length > 1 && (
-                        <svg width="100%" height="158" viewBox="0 0 390 158" preserveAspectRatio="none">
-                          <defs>
-                            <linearGradient id="dlGradLive" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.28"/>
-                              <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
-                            </linearGradient>
-                            <linearGradient id="ulGradLive" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="0%" stopColor="#8979ff" stopOpacity="0.22"/>
-                              <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
-                            </linearGradient>
-                            <clipPath id="chartClipLive">
-                              <rect x={CL} y={CT} width={CR - CL} height={CB - CT + 2}/>
-                            </clipPath>
-                          </defs>
-                          {[CT, CT + (CB-CT)*0.33, CT + (CB-CT)*0.66, CB].map((yy, i) => (
-                            <line key={i} x1={CL} y1={yy} x2={CR} y2={yy} stroke="#E7E7E7" strokeWidth="1"/>
-                          ))}
-                          {[0,1,2,3,4].map(i => (
-                            <line key={i} x1={CL + i*(CR-CL)/4} y1={CT} x2={CL + i*(CR-CL)/4} y2={CB} stroke="#E7E7E7" strokeWidth="1" strokeDasharray="3,3"/>
-                          ))}
-                          <path d={smoothPath(dl, true)} fill="url(#dlGradLive)" clipPath="url(#chartClipLive)"/>
-                          <path d={smoothPath(dl)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipLive)"/>
-                          <path d={smoothPath(ul, true)} fill="url(#ulGradLive)" clipPath="url(#chartClipLive)"/>
-                          <path d={smoothPath(ul)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipLive)"/>
-                          <text x={CL + 4} y={CT + 10} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">kbps</text>
-                          <text x={CL + 4} y={CT + (CB-CT)*0.33 + 4} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">20</text>
-                          <text x={CL + 4} y={CT + (CB-CT)*0.66 + 4} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">10</text>
-                          <text x={CL + 4} y={CB - 3} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">0</text>
-                          {["0s","15s","30s","45s","Now"].map((lbl, i) => (
-                            <text key={i} x={CL + i*(CR-CL)/4} y={CB + 14} textAnchor="middle" fontSize="10" fill="#9da1a7" fontFamily="Google Sans, sans-serif">{lbl}</text>
-                          ))}
-                        </svg>
-                      )}
-                      <div className="flex justify-end px-4 pb-4">
-                        <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>See all</button>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="flex items-center gap-3 px-4 pb-4">
+                    <div className="flex items-center gap-3">
                       <div className="flex items-center gap-1.5">
                         <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
                         <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
                           <span className="text-[#0fc7f3]">DL</span>
-                          <span className="text-[#9da1a7]"> {fmtKb(dlVal, netStatus)}</span>
+                          <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>{fmtKb(dlVal, netStatus)}</span>
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
                         <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
                           <span className="text-[#8979ff]">UL</span>
-                          <span className="text-[#9da1a7]"> {fmtKb(ulVal, netStatus)}</span>
+                          <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>{fmtKb(ulVal, netStatus)}</span>
                         </span>
                       </div>
                     </div>
+                  </div>
+                  {dl.length > 1 && (
+                    <svg width="100%" height="80" viewBox="0 0 390 80" preserveAspectRatio="none" style={{ display: "block" }}>
+                      <defs>
+                        <linearGradient id="dlGradLive" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.3"/>
+                          <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
+                        </linearGradient>
+                        <linearGradient id="ulGradLive" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#8979ff" stopOpacity="0.25"/>
+                          <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
+                        </linearGradient>
+                        <clipPath id="chartClipLive"><rect x="0" y="0" width="390" height="80"/></clipPath>
+                      </defs>
+                      <path d={smoothPathCompact(dl, true)} fill="url(#dlGradLive)" clipPath="url(#chartClipLive)"/>
+                      <path d={smoothPathCompact(dl)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipLive)"/>
+                      <path d={smoothPathCompact(ul, true)} fill="url(#ulGradLive)" clipPath="url(#chartClipLive)"/>
+                      <path d={smoothPathCompact(ul)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipLive)"/>
+                    </svg>
                   )}
                 </div>
 
