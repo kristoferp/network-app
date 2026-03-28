@@ -110,7 +110,7 @@ function useWaves(status: NetworkStatus) {
     tick.current = NUM_PTS;
 
     const loop = (ts: number) => {
-      if (ts - last.current > 120) {
+      if (ts - last.current > 180) {
         last.current = ts;
         const t = tick.current++;
         const nd = dlWave(t, statRef.current);
