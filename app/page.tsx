@@ -702,13 +702,13 @@ export default function Home() {
                   )}
                 </div>
 
-                {/* ── Shortcuts ────────────────────────────────────────────── */}
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
+                {/* ── Shortcuts card ───────────────────────────────────────── */}
+                <div className="rounded-2xl flex flex-col" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
+                  <div className="flex items-center justify-between px-4 pt-4 pb-3">
                     <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Shortcuts</p>
                     <button className="text-[14px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Add +</button>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 px-4 pb-4">
                     {[
                       { icon: <SpeedIcon />, label: "ISP Speed" },
                       { icon: <TopoIcon />, label: "Topology" },
@@ -722,18 +722,15 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* ── Applications ─────────────────────────────────────────── */}
-                <div className="flex flex-col gap-3">
-                  <div className="flex items-center h-5">
-                    <div className="pr-2" style={{ borderRight: "1px solid #d6d8db" }}>
-                      <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Applications</p>
-                    </div>
-                    <div className="flex-1 px-2">
-                      <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>External</span>
-                    </div>
+                {/* ── Applications card ────────────────────────────────────── */}
+                <div className="rounded-2xl flex flex-col" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
+                  <div className="flex items-center px-4 pt-4 pb-3 gap-2">
+                    <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Applications</p>
+                    <div style={{ width: 1, height: 14, background: "#d6d8db" }}/>
+                    <span className="text-[13px] text-[#9da1a7] flex-1" style={{ fontFamily: "'Google Sans', sans-serif" }}>External</span>
                     <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Show more</button>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 px-4 pb-4">
                     {[
                       { icon: <BoxIcon />, label: "AR", sub: "Opens WiFiMan" },
                       { icon: <TopoIcon />, label: "Topology", sub: "Opens WiFiMan" },
