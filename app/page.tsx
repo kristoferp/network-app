@@ -681,6 +681,14 @@ export default function Home() {
                         <span className="text-[14px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Telenor Sverige</span>
                         <span className="text-[14px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>23.234.12.1</span>
                       </div>
+                      <span className="text-[13px]" style={{
+                        fontFamily: "'Google Sans', sans-serif",
+                        fontWeight: 500,
+                        color: netStatus === "healthy" ? "#22c55e" : netStatus === "issues" ? "#f59e0b" : "#ef4444",
+                        transition: "color 0.6s",
+                      }}>
+                        {netStatus === "healthy" ? "Excellent" : netStatus === "issues" ? "Degraded" : "No signal"}
+                      </span>
                       <div className="rounded-full overflow-hidden flex" style={{ height: 8, border: "1px solid #E7E7E7" }}>
                         {cfg.qualityBar.map((seg, i) => (
                           <div key={i} style={{ width: seg.w === "1" ? undefined : seg.w, flex: seg.w === "1" ? 1 : undefined, background: seg.bg, transition: "background 0.6s" }}/>
