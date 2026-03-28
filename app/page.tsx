@@ -452,56 +452,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* ── Connection quality card (collapsible) ────────────────── */}
-                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
-                  <button className="flex items-center justify-between w-full px-4 pt-4"
-                    onClick={() => setQualityOpen(o => !o)}>
-                    <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Connection quality</p>
-                    <span className="text-[#9da1a7]"><ChevronDown rotated={qualityOpen} /></span>
-                  </button>
-
-                  {qualityOpen ? (
-                    <div className="flex flex-col gap-3 px-4 pb-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[14px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Telenor Sverige</span>
-                        <span className="text-[14px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>23.234.12.1</span>
-                      </div>
-                      <div className="rounded-full overflow-hidden flex" style={{ height: 8, border: "1px solid #E7E7E7" }}>
-                        {cfg.qualityBar.map((seg, i) => (
-                          <div key={i} style={{ width: seg.w === "1" ? undefined : seg.w, flex: seg.w === "1" ? 1 : undefined, background: seg.bg, transition: "background 0.6s" }}/>
-                        ))}
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Live Throughput</span>
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
-                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                              <span className="text-[#0fc7f3]">DL</span>
-                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}>{fmtKb(dlVal, netStatus)}</span>
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
-                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                              <span className="text-[#8979ff]">UL</span>
-                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}>{fmtKb(ulVal, netStatus)}</span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex justify-end">
-                        <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>See all</button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-between px-4 pb-4">
-                      <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Telenor Sverige · 23.234.12.1</span>
-                      <div className="w-2 h-2 rounded-full" style={{ background: cfg.qualityDot }}/>
-                    </div>
-                  )}
-                </div>
-
                 {/* ── Internet activity card (collapsible, animated) ────────── */}
                 <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
                   <button className="flex items-center justify-between w-full px-4 pt-4"
@@ -597,6 +547,56 @@ export default function Home() {
                           <span className="text-[#9da1a7]"> {fmtKb(ulVal, netStatus)}</span>
                         </span>
                       </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* ── Connection quality card (collapsible) ────────────────── */}
+                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
+                  <button className="flex items-center justify-between w-full px-4 pt-4"
+                    onClick={() => setQualityOpen(o => !o)}>
+                    <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Connection quality</p>
+                    <span className="text-[#9da1a7]"><ChevronDown rotated={qualityOpen} /></span>
+                  </button>
+
+                  {qualityOpen ? (
+                    <div className="flex flex-col gap-3 px-4 pb-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[14px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Telenor Sverige</span>
+                        <span className="text-[14px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>23.234.12.1</span>
+                      </div>
+                      <div className="rounded-full overflow-hidden flex" style={{ height: 8, border: "1px solid #E7E7E7" }}>
+                        {cfg.qualityBar.map((seg, i) => (
+                          <div key={i} style={{ width: seg.w === "1" ? undefined : seg.w, flex: seg.w === "1" ? 1 : undefined, background: seg.bg, transition: "background 0.6s" }}/>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Live Throughput</span>
+                        <div className="flex items-center gap-3">
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
+                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                              <span className="text-[#0fc7f3]">DL</span>
+                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}>{fmtKb(dlVal, netStatus)}</span>
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
+                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                              <span className="text-[#8979ff]">UL</span>
+                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}>{fmtKb(ulVal, netStatus)}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex justify-end">
+                        <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>See all</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between px-4 pb-4">
+                      <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Telenor Sverige · 23.234.12.1</span>
+                      <div className="w-2 h-2 rounded-full" style={{ background: cfg.qualityDot }}/>
                     </div>
                   )}
                 </div>
