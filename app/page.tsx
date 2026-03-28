@@ -280,7 +280,7 @@ export default function Home() {
     offline: {
       banner: { bg: "#fff1f0", border: "#ffd4d0", Icon: ErrorIcon, title: "Internet connection lost", sub: "No connectivity detected" },
       internet: { label: "Offline",    color: "#ef4444", sub: "Telenor" },
-      wifi:     { label: "No internet", color: "#f59e0b", sub: "UniFi" },
+      wifi:     { label: "Limited", color: "#f59e0b", sub: "UniFi" },
       devices:  { count: 3, sub: "No internet", warn: false, color: "#ef4444" },
       qualityBar: [
         { w: "100%", bg: "#d1d5db" },
