@@ -181,27 +181,23 @@ const GearIcon = ({ color = "#1c1c1e" }: { color?: string }) => (
     <path d="M30.8102 33.36C28.3402 35.83 27.0102 31.57 24.6402 32.41C22.2702 33.25 23.5202 36.72 21.8702 37.22C20.3602 37.68 14.9502 38.52 14.6902 35.55C14.5902 34.4 14.3102 33.01 13.5002 32.64C10.6402 31.34 9.33017 35.46 7.53017 33.8L4.59017 31.09C1.68017 28.42 6.12017 26.86 5.20017 24.77C4.82017 23.9 3.56017 23.03 2.77017 23.01C0.290167 22.93 -0.119833 21.12 0.0301667 19.05L0.240167 16.11C0.370167 14.34 3.72017 15.3 5.03017 13.26C6.34017 11.22 2.99017 9.58004 3.63017 8.00004C3.92017 7.28004 4.91017 6.18004 5.59017 5.57004L7.70017 3.69004C9.04017 2.50004 11.1002 5.91004 13.0102 5.14004C14.1302 4.69004 14.6102 3.38004 14.7002 2.14004C14.9302 -0.809961 20.3902 3.93689e-05 21.9002 0.460039C23.5702 0.980039 22.0102 3.87004 24.7702 5.15004C26.5402 5.97004 28.6802 2.28004 30.2202 3.81004L33.8802 7.45004C35.4202 8.98004 31.6702 10.92 32.5002 13.02C33.5702 15.7 37.6102 13.54 37.6102 16.99V20.69C37.6102 24.12 33.4902 22.01 32.4802 24.64C31.5502 27.06 35.8502 28.34 33.4102 30.76L30.8002 33.36H30.8102ZM25.2802 18.81C25.2802 15.24 22.3902 12.35 18.8202 12.35C15.2502 12.35 12.3602 15.24 12.3602 18.81C12.3602 22.38 15.2502 25.27 18.8202 25.27C22.3902 25.27 25.2802 22.38 25.2802 18.81Z" fill={color}/>
   </svg>
 );
-const NetIcon = () => (
-  <svg width="22" height="18" viewBox="0 0 32 26" fill="none">
-    <rect x="11" y="0" width="10" height="8" rx="2" fill="#22c55e"/>
-    <line x1="16" y1="8" x2="6" y2="18" stroke="#22c55e" strokeWidth="1.5"/>
-    <line x1="16" y1="8" x2="26" y2="18" stroke="#22c55e" strokeWidth="1.5"/>
-    <rect x="1" y="18" width="10" height="8" rx="2" fill="#22c55e"/>
-    <rect x="21" y="18" width="10" height="8" rx="2" fill="#22c55e"/>
+const NetIcon = ({ color = "#22C55E" }: { color?: string }) => (
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3.75 14.75V11.75C3.75 11.4848 3.85536 11.2304 4.04289 11.0429C4.23043 10.8554 4.48478 10.75 4.75 10.75H16.75C17.0152 10.75 17.2696 10.8554 17.4571 11.0429C17.6446 11.2304 17.75 11.4848 17.75 11.75V14.75M10.75 10.75V6.75M15.75 14.75H19.75C20.3023 14.75 20.75 15.1977 20.75 15.75V19.75C20.75 20.3023 20.3023 20.75 19.75 20.75H15.75C15.1977 20.75 14.75 20.3023 14.75 19.75V15.75C14.75 15.1977 15.1977 14.75 15.75 14.75ZM1.75 14.75H5.75C6.30228 14.75 6.75 15.1977 6.75 15.75V19.75C6.75 20.3023 6.30228 20.75 5.75 20.75H1.75C1.19772 20.75 0.75 20.3023 0.75 19.75V15.75C0.75 15.1977 1.19772 14.75 1.75 14.75ZM8.75 0.75H12.75C13.3023 0.75 13.75 1.19772 13.75 1.75V5.75C13.75 6.30228 13.3023 6.75 12.75 6.75H8.75C8.19772 6.75 7.75 6.30228 7.75 5.75V1.75C7.75 1.19772 8.19772 0.75 8.75 0.75Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
-const WarnIcon = () => (
+const WarnIcon = ({ color = "#f59e0b" }: { color?: string }) => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" stroke="#f59e0b"/>
-    <line x1="12" y1="8" x2="12" y2="12" stroke="#f59e0b"/>
-    <circle cx="12" cy="16" r="0.8" fill="#f59e0b" stroke="none"/>
+    <circle cx="12" cy="12" r="10" stroke={color}/>
+    <line x1="12" y1="8" x2="12" y2="12" stroke={color}/>
+    <circle cx="12" cy="16" r="0.8" fill={color} stroke="none"/>
   </svg>
 );
-const ErrorIcon = () => (
+const ErrorIcon = ({ color = "#ef4444" }: { color?: string }) => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" stroke="#ef4444"/>
-    <line x1="12" y1="8" x2="12" y2="13" stroke="#ef4444"/>
-    <circle cx="12" cy="16.5" r="0.8" fill="#ef4444" stroke="none"/>
+    <circle cx="12" cy="12" r="10" stroke={color}/>
+    <line x1="12" y1="8" x2="12" y2="13" stroke={color}/>
+    <circle cx="12" cy="16.5" r="0.8" fill={color} stroke="none"/>
   </svg>
 );
 const SpeedIcon = () => (
@@ -293,7 +289,7 @@ export default function Home() {
   // ── Per-state UI config ──────────────────────────────────────────────────
   const stateConfig = {
     healthy: {
-      banner: { bg: "#ecfff3", border: "#d1f5e0", Icon: NetIcon, title: "Your network is running smoothly", sub: "3 devices connected · 1.1 Mbps download" },
+      banner: { bg: "#ecfff3", border: "#d1f5e0", Icon: NetIcon, iconColor: "#22C55E", title: "Your network is running smoothly", sub: "3 devices connected · 1.1 Mbps download" },
       internet: { label: "Online",  color: "#22c55e", sub: "Telenor" },
       wifi:     { label: "Active",  color: "#22c55e", sub: "UniFi" },
       devices:  { count: 3, sub: "Connected", warn: false, color: "#22c55e" },
@@ -305,7 +301,7 @@ export default function Home() {
       qualityDot: "#22c55e",
     },
     issues: {
-      banner: { bg: "#fff8ec", border: "#fde8c0", Icon: WarnIcon, title: "Minor issues detected", sub: "1 device offline · Degraded throughput" },
+      banner: { bg: "#fff8ec", border: "#fde8c0", Icon: WarnIcon, iconColor: "#f59e0b", title: "Minor issues detected", sub: "1 device offline · Degraded throughput" },
       internet: { label: "Online",  color: "#22c55e", sub: "Telenor" },
       wifi:     { label: "Limited", color: "#f59e0b", sub: "UniFi" },
       devices:  { count: 2, sub: "1 offline", warn: true, color: "#f59e0b" },
@@ -317,7 +313,7 @@ export default function Home() {
       qualityDot: "#f59e0b",
     },
     offline: {
-      banner: { bg: "#fff1f0", border: "#ffd4d0", Icon: ErrorIcon, title: "Internet connection lost", sub: "No connectivity detected" },
+      banner: { bg: "#fff1f0", border: "#ffd4d0", Icon: ErrorIcon, iconColor: "#ef4444", title: "Internet connection lost", sub: "No connectivity detected" },
       internet: { label: "Offline",    color: "#ef4444", sub: "Telenor" },
       wifi:     { label: "Limited", color: "#f59e0b", sub: "UniFi" },
       devices:  { count: 3, sub: "No internet", warn: false, color: "#ef4444" },
@@ -456,7 +452,7 @@ export default function Home() {
                 touchAction: "none",
               }}
             >
-              <div style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}><cfg.banner.Icon /></div>
+              <div style={{ flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}><cfg.banner.Icon color={cfg.banner.iconColor} /></div>
               <p style={{
                 fontFamily: "'Google Sans', sans-serif",
                 fontSize: 14,
