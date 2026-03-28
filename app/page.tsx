@@ -262,6 +262,7 @@ export default function Home() {
   const [qualityOpen, setQualityOpen] = useState(true);
   const [activityOpen, setActivityOpen] = useState(true);
   const [liveOpen, setLiveOpen] = useState(true);
+  const [throughputTab, setThroughputTab] = useState<"live" | "24h">("live");
   const [netStatus, setNetStatus] = useState<NetworkStatus>("healthy");
   const [isMobile, setIsMobile] = useState(false);
   const { dl, ul, dlVal, ulVal } = useWaves(netStatus);
@@ -489,144 +490,125 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* ── Live Throughput card (always open, compact, no grid) ───── */}
-                <div className="rounded-2xl flex flex-col gap-2" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
-                  <div className="flex items-center justify-between px-4 pt-4">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Live Throughput</span>
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: netStatus === "healthy" ? "#22c55e" : netStatus === "issues" ? "#f59e0b" : "#ef4444" }}/>
-                        <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: netStatus === "healthy" ? "#22c55e" : netStatus === "issues" ? "#f59e0b" : "#ef4444" }}/>
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
-                        <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                          <span className="text-[#0fc7f3]">DL</span>
-                          <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>{fmtKb(dlVal, netStatus)}</span>
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
-                        <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                          <span className="text-[#8979ff]">UL</span>
-                          <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>{fmtKb(ulVal, netStatus)}</span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  {dl.length > 1 && (
-                    <svg width="100%" height="80" viewBox="0 0 390 80" preserveAspectRatio="none" style={{ display: "block" }}>
-                      <defs>
-                        <linearGradient id="dlGradLive" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.3"/>
-                          <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
-                        </linearGradient>
-                        <linearGradient id="ulGradLive" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#8979ff" stopOpacity="0.25"/>
-                          <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
-                        </linearGradient>
-                        <clipPath id="chartClipLive"><rect x="0" y="0" width="390" height="80"/></clipPath>
-                      </defs>
-                      <path d={smoothPathCompact(dl, true)} fill="url(#dlGradLive)" clipPath="url(#chartClipLive)"/>
-                      <path d={smoothPathCompact(dl)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipLive)"/>
-                      <path d={smoothPathCompact(ul, true)} fill="url(#ulGradLive)" clipPath="url(#chartClipLive)"/>
-                      <path d={smoothPathCompact(ul)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipLive)"/>
-                    </svg>
-                  )}
-                </div>
-
-                {/* ── Internet activity card (static 24h snapshot) ──────────── */}
-                <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
-                  <button className="flex items-center justify-between w-full px-4 pt-4"
-                    onClick={() => setActivityOpen(o => !o)}>
-                    <div className="flex items-center gap-1">
-                      <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Internet activity</span>
-                      <span className="text-[14px] text-[#5f6369]" style={{ fontFamily: "'Google Sans', sans-serif" }}> 24h</span>
-                    </div>
-                    <span className="text-[#9da1a7]"><ChevronDown rotated={activityOpen} /></span>
-                  </button>
-
-                  {activityOpen ? (
-                    <>
-                      <div className="flex items-center justify-between px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
-                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                              <span className="text-[#0fc7f3]">DL</span>
-                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}> 854 kb</span>
+                {/* ── Live Throughput + 24h — tabbed card ───────────────────── */}
+                {(() => {
+                  const liveColor = netStatus === "healthy" ? "#22c55e" : netStatus === "issues" ? "#f59e0b" : "#ef4444";
+                  return (
+                    <div className="rounded-2xl flex flex-col" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
+                      {/* Header */}
+                      <div className="flex items-center justify-between px-4 pt-4 pb-3">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                            {throughputTab === "live" ? "Live Throughput" : "Internet Activity"}
+                          </span>
+                          {throughputTab === "live" && (
+                            <span className="relative flex h-2 w-2">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: liveColor }}/>
+                              <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: liveColor }}/>
                             </span>
-                          </div>
-                          <div className="flex items-center gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
-                            <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                              <span className="text-[#8979ff]">UL</span>
-                              <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 52, fontVariantNumeric: "tabular-nums" }}> 854 kb</span>
-                            </span>
-                          </div>
+                          )}
                         </div>
-                        <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>1.1 MB</span>
+                        {/* Segmented control */}
+                        <div className="flex rounded-lg p-0.5" style={{ background: "#F2F2F7" }}>
+                          {(["live", "24h"] as const).map(tab => (
+                            <button key={tab} onClick={() => setThroughputTab(tab)}
+                              className="px-3 py-1 rounded-md text-[12px] font-medium transition-all"
+                              style={{
+                                fontFamily: "'Google Sans', sans-serif",
+                                background: throughputTab === tab ? "#ffffff" : "transparent",
+                                color: throughputTab === tab ? "#0b182c" : "#9da1a7",
+                                boxShadow: throughputTab === tab ? "0 1px 3px rgba(0,0,0,0.12)" : "none",
+                                transition: "background 0.2s, color 0.2s",
+                              }}>
+                              {tab === "live" ? "Live" : "24h"}
+                            </button>
+                          ))}
+                        </div>
                       </div>
 
-                      {/* Static 24h chart */}
-                      <svg width="100%" height="158" viewBox="0 0 390 158" preserveAspectRatio="none">
-                        <defs>
-                          <linearGradient id="dlGradStatic" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.28"/>
-                            <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
-                          </linearGradient>
-                          <linearGradient id="ulGradStatic" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#8979ff" stopOpacity="0.22"/>
-                            <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
-                          </linearGradient>
-                          <clipPath id="chartClipStatic">
-                            <rect x={CL} y={CT} width={CR - CL} height={CB - CT + 2}/>
-                          </clipPath>
-                        </defs>
-                        {[CT, CT + (CB-CT)*0.33, CT + (CB-CT)*0.66, CB].map((yy, i) => (
-                          <line key={i} x1={CL} y1={yy} x2={CR} y2={yy} stroke="#E7E7E7" strokeWidth="1"/>
-                        ))}
-                        {[0,1,2,3,4].map(i => (
-                          <line key={i} x1={CL + i*(CR-CL)/4} y1={CT} x2={CL + i*(CR-CL)/4} y2={CB} stroke="#E7E7E7" strokeWidth="1" strokeDasharray="3,3"/>
-                        ))}
-                        <path d={smoothPath(STATIC_DL_24H, true)} fill="url(#dlGradStatic)" clipPath="url(#chartClipStatic)"/>
-                        <path d={smoothPath(STATIC_DL_24H)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipStatic)"/>
-                        <path d={smoothPath(STATIC_UL_24H, true)} fill="url(#ulGradStatic)" clipPath="url(#chartClipStatic)"/>
-                        <path d={smoothPath(STATIC_UL_24H)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#chartClipStatic)"/>
-                        <text x={CL + 4} y={CT + 10} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">kbps</text>
-                        <text x={CL + 4} y={CT + (CB-CT)*0.33 + 4} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">20</text>
-                        <text x={CL + 4} y={CT + (CB-CT)*0.66 + 4} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">10</text>
-                        <text x={CL + 4} y={CB - 3} textAnchor="start" fontSize="10" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">0</text>
-                        {["10:00","16:00","22:00","4:00","Now"].map((lbl, i) => (
-                          <text key={i} x={CL + i*(CR-CL)/4} y={CB + 14} textAnchor="middle" fontSize="10" fill="#9da1a7" fontFamily="Google Sans, sans-serif">{lbl}</text>
-                        ))}
-                      </svg>
+                      {/* Stats row — same layout for both tabs, fixed height */}
+                      <div className="flex items-center gap-3 px-4 pb-2">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
+                          <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                            <span className="text-[#0fc7f3]">DL</span>
+                            <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>
+                              {throughputTab === "live" ? fmtKb(dlVal, netStatus) : " 854 kb"}
+                            </span>
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
+                          <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
+                            <span className="text-[#8979ff]">UL</span>
+                            <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>
+                              {throughputTab === "live" ? fmtKb(ulVal, netStatus) : " 854 kb"}
+                            </span>
+                          </span>
+                        </div>
+                        {throughputTab === "24h" && (
+                          <span className="text-[13px] text-[#9da1a7] ml-auto" style={{ fontFamily: "'Google Sans', sans-serif" }}>1.1 MB</span>
+                        )}
+                      </div>
 
-                      <div className="flex justify-end px-4 pb-4">
-                        <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>See all</button>
+                      {/* Fixed-height chart area — same height for both tabs */}
+                      <div style={{ height: 100, position: "relative" }}>
+                        {/* Live tab: animated, no grid */}
+                        <div style={{ position: "absolute", inset: 0, opacity: throughputTab === "live" ? 1 : 0, transition: "opacity 0.25s", pointerEvents: throughputTab === "live" ? "auto" : "none" }}>
+                          {dl.length > 1 && (
+                            <svg width="100%" height="100" viewBox="0 0 390 100" preserveAspectRatio="none" style={{ display: "block" }}>
+                              <defs>
+                                <linearGradient id="dlGradLive" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.3"/>
+                                  <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
+                                </linearGradient>
+                                <linearGradient id="ulGradLive" x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="0%" stopColor="#8979ff" stopOpacity="0.25"/>
+                                  <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
+                                </linearGradient>
+                                <clipPath id="clipLive"><rect x="0" y="0" width="390" height="100"/></clipPath>
+                              </defs>
+                              <path d={smoothPathCompact(dl, true)} fill="url(#dlGradLive)" clipPath="url(#clipLive)"/>
+                              <path d={smoothPathCompact(dl)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipLive)"/>
+                              <path d={smoothPathCompact(ul, true)} fill="url(#ulGradLive)" clipPath="url(#clipLive)"/>
+                              <path d={smoothPathCompact(ul)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipLive)"/>
+                            </svg>
+                          )}
+                        </div>
+                        {/* 24h tab: static with grid + time labels */}
+                        <div style={{ position: "absolute", inset: 0, opacity: throughputTab === "24h" ? 1 : 0, transition: "opacity 0.25s", pointerEvents: throughputTab === "24h" ? "auto" : "none" }}>
+                          <svg width="100%" height="100" viewBox="0 0 390 100" preserveAspectRatio="none" style={{ display: "block" }}>
+                            <defs>
+                              <linearGradient id="dlGradStatic" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.28"/>
+                                <stop offset="100%" stopColor="#0fc7f3" stopOpacity="0.02"/>
+                              </linearGradient>
+                              <linearGradient id="ulGradStatic" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stopColor="#8979ff" stopOpacity="0.22"/>
+                                <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
+                              </linearGradient>
+                              <clipPath id="clipStatic"><rect x="0" y="0" width="390" height="82"/></clipPath>
+                            </defs>
+                            {/* Subtle grid */}
+                            {[10, 37, 64].map((yy, i) => (
+                              <line key={i} x1="0" y1={yy} x2="390" y2={yy} stroke="#F0F0F0" strokeWidth="1"/>
+                            ))}
+                            <path d={smoothPathCompact(STATIC_DL_24H, true)} fill="url(#dlGradStatic)" clipPath="url(#clipStatic)"/>
+                            <path d={smoothPathCompact(STATIC_DL_24H)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipStatic)"/>
+                            <path d={smoothPathCompact(STATIC_UL_24H, true)} fill="url(#ulGradStatic)" clipPath="url(#clipStatic)"/>
+                            <path d={smoothPathCompact(STATIC_UL_24H)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipStatic)"/>
+                            {/* X-axis labels */}
+                            {["10:00","16:00","22:00","4:00","Now"].map((lbl, i) => (
+                              <text key={i} x={i * (390/4)} y="98" textAnchor={i === 0 ? "start" : i === 4 ? "end" : "middle"} fontSize="9" fill="#b8bcc2" fontFamily="Google Sans, sans-serif">{lbl}</text>
+                            ))}
+                          </svg>
+                        </div>
                       </div>
-                    </>
-                  ) : (
-                    <div className="flex items-center gap-3 px-4 pb-4">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-[#0fc7f3]"/>
-                        <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                          <span className="text-[#0fc7f3]">DL</span>
-                          <span className="text-[#9da1a7]"> 854 kb</span>
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-2 h-2 rounded-full bg-[#8979ff]"/>
-                        <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
-                          <span className="text-[#8979ff]">UL</span>
-                          <span className="text-[#9da1a7]"> 854 kb</span>
-                        </span>
-                      </div>
+                      {/* Bottom padding */}
+                      <div style={{ height: 12 }}/>
                     </div>
-                  )}
-                </div>
+                  );
+                })()}
 
                 {/* ── Connection quality card (collapsible) ────────────────── */}
                 <div className="rounded-2xl flex flex-col gap-3" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
