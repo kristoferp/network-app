@@ -257,7 +257,7 @@ export default function Home() {
       banner: { bg: "#ecfff3", border: "#d1f5e0", Icon: NetIcon, title: "Your network is running smoothly", sub: "3 devices connected · 1.1 Mbps download" },
       internet: { label: "Online",  color: "#22c55e", sub: "Telenor" },
       wifi:     { label: "Active",  color: "#22c55e", sub: "UniFi" },
-      devices:  { count: 3, sub: "Connected", warn: false },
+      devices:  { count: 3, sub: "Connected", warn: false, color: "#0073f1" },
       qualityBar: [
         { w: "52%", bg: "#22c55e" }, { w: "16%", bg: "#ef4444" },
         { w: "7%",  bg: "#fb923c" }, { w: "1",   bg: "#22c55e" },
@@ -269,7 +269,7 @@ export default function Home() {
       banner: { bg: "#fff8ec", border: "#fde8c0", Icon: WarnIcon, title: "Minor issues detected", sub: "1 device offline · Degraded throughput" },
       internet: { label: "Online",  color: "#22c55e", sub: "Telenor" },
       wifi:     { label: "Limited", color: "#f59e0b", sub: "UniFi" },
-      devices:  { count: 2, sub: "1 offline", warn: true },
+      devices:  { count: 2, sub: "1 offline", warn: true, color: "#f59e0b" },
       qualityBar: [
         { w: "22%", bg: "#22c55e" }, { w: "28%", bg: "#ef4444" },
         { w: "12%", bg: "#fb923c" }, { w: "1",   bg: "#22c55e" },
@@ -281,7 +281,7 @@ export default function Home() {
       banner: { bg: "#fff1f0", border: "#ffd4d0", Icon: ErrorIcon, title: "Internet connection lost", sub: "No connectivity detected" },
       internet: { label: "Offline",    color: "#ef4444", sub: "Telenor" },
       wifi:     { label: "No internet", color: "#f59e0b", sub: "UniFi" },
-      devices:  { count: 3, sub: "No internet", warn: false },
+      devices:  { count: 3, sub: "No internet", warn: false, color: "#ef4444" },
       qualityBar: [
         { w: "100%", bg: "#d1d5db" },
       ],
@@ -291,7 +291,7 @@ export default function Home() {
     banner: { bg: string; border: string; Icon: React.ComponentType; title: string; sub: string };
     internet: { label: string; color: string; sub: string };
     wifi: { label: string; color: string; sub: string };
-    devices: { count: number; sub: string; warn: boolean };
+    devices: { count: number; sub: string; warn: boolean; color: string };
     qualityBar: { w: string; bg: string }[];
     qualityDot: string;
   }>;
@@ -441,7 +441,7 @@ export default function Home() {
                         <line x1="0" y1="1" x2="18" y2="1" stroke="#c8c8cc" strokeWidth="1.5" strokeDasharray="2.5,2.5"/>
                       </svg>
                       <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
-                        style={{ background: cfg.devices.warn ? "#fb923c" : "#0073f1" }}>
+                        style={{ background: cfg.devices.color }}>
                         <span className="text-white text-[13px] font-semibold" style={{ fontFamily: "'Google Sans', sans-serif" }}>{cfg.devices.count}</span>
                       </div>
                       <svg width="18" height="2" viewBox="0 0 18 2">
