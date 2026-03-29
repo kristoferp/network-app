@@ -229,8 +229,9 @@ const PulseDot = ({ color = "#22c55e" }: { color?: string }) => (
 
 // ── Shortcut button gradient ──────────────────────────────────────────────────
 const shortcutBtnStyle: React.CSSProperties = {
-  background: "rgba(0, 115, 241, 0.05)",
-  borderRadius: 14,
+  background: "linear-gradient(to bottom, rgba(34,118,252,0.08) 0%, #ffffff 100%)",
+  border: "1px solid #d3e2ff",
+  borderRadius: 16,
 };
 
 // ── Device frame wrapper (desktop only) ───────────────────────────────────────
@@ -751,7 +752,7 @@ export default function Home() {
                       <button key={item.label} className="flex-1 py-3 flex flex-col items-center gap-2" style={shortcutBtnStyle}>
                         {item.icon}
                         <span className="text-[12px] text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{item.label}</span>
-                        <span className="text-[11px] font-medium text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{item.sub}</span>
+                        <span className="text-[12px] text-[#2276fc]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{item.sub}</span>
                       </button>
                     ))}
                   </div>
