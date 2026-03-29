@@ -565,7 +565,7 @@ export default function Home() {
                           <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
                             <span className="text-[#0fc7f3]">DL</span>
                             <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>
-                              {throughputTab === "live" ? fmtKb(dlVal, netStatus) : " 0.85 GB"}
+                              {throughputTab === "live" ? fmtKb(dlVal, netStatus) : " 43.7 GB"}
                             </span>
                           </span>
                         </div>
@@ -574,12 +574,12 @@ export default function Home() {
                           <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
                             <span className="text-[#8979ff]">UL</span>
                             <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>
-                              {throughputTab === "live" ? fmtKb(ulVal, netStatus) : " 0.85 GB"}
+                              {throughputTab === "live" ? fmtKb(ulVal, netStatus) : " 34.2 GB"}
                             </span>
                           </span>
                         </div>
                         {throughputTab === "24h" && (
-                          <span className="text-[13px] text-[#9da1a7] ml-auto" style={{ fontFamily: "'Google Sans', sans-serif" }}>1.1 GB</span>
+                          <span className="text-[13px] text-[#9da1a7] ml-auto" style={{ fontFamily: "'Google Sans', sans-serif" }}>91.1 GB</span>
                         )}
                       </div>
 
