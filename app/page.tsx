@@ -561,7 +561,7 @@ export default function Home() {
                       <div className="flex items-center gap-6 px-4 pb-2">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-[#0fc7f3] flex-shrink-0"/>
-                          <div className="flex items-center gap-0">
+                          <div className="flex items-center gap-2">
                             <span className="text-[#0fc7f3] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>DL</span>
                             <span className="text-[#9da1a7] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif", minWidth: 72, fontVariantNumeric: "tabular-nums" }}>
                               {throughputTab === "live" ? fmtKb(dlVal, netStatus) : " 43.7 GB"}
@@ -570,7 +570,7 @@ export default function Home() {
                         </div>
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-[#8979ff] flex-shrink-0"/>
-                          <div className="flex items-center gap-0">
+                          <div className="flex items-center gap-2">
                             <span className="text-[#8979ff] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>UL</span>
                             <span className="text-[#9da1a7] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif", minWidth: 72, fontVariantNumeric: "tabular-nums" }}>
                               {throughputTab === "live" ? fmtKb(ulVal, netStatus) : " 34.2 GB"}
