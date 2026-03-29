@@ -528,7 +528,7 @@ export default function Home() {
                     <div className="rounded-2xl flex flex-col" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
                       {/* Header */}
                       <div className="flex items-center justify-between px-4 pt-4 pb-3">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
                           <span className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
                             {throughputTab === "live" ? "Live Throughput" : "Internet Activity"}
                           </span>
@@ -559,18 +559,18 @@ export default function Home() {
 
                       {/* Stats row — same layout for both tabs, fixed height */}
                       <div className="flex items-center gap-6 px-4 pb-2">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
                           <div className="w-2 h-2 rounded-full bg-[#0fc7f3] flex-shrink-0"/>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1">
                             <span className="text-[#0fc7f3] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>DL</span>
                             <span className="text-[#9da1a7] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif", minWidth: 72, fontVariantNumeric: "tabular-nums" }}>
                               {throughputTab === "live" ? fmtKb(dlVal, netStatus) : " 43.7 GB"}
                             </span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
                           <div className="w-2 h-2 rounded-full bg-[#8979ff] flex-shrink-0"/>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1">
                             <span className="text-[#8979ff] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>UL</span>
                             <span className="text-[#9da1a7] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif", minWidth: 72, fontVariantNumeric: "tabular-nums" }}>
                               {throughputTab === "live" ? fmtKb(ulVal, netStatus) : " 34.2 GB"}
