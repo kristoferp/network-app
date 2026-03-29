@@ -749,8 +749,8 @@ export default function Home() {
                   </div>
                   <div className="flex gap-2 px-4 pb-4">
                     {[
-                      { icon: <BoxIcon />, label: "AR", sub: "Opens WiFiMan" },
-                      { icon: <TopoIcon />, label: "Topology", sub: "Opens Design" },
+                      { icon: <BoxIcon />, label: "AR", sub: "WiFiMan" },
+                      { icon: <TopoIcon />, label: "Topology", sub: "Design" },
                     ].map(item => (
                       <button key={item.label} className="flex-1 py-3 flex flex-col items-center gap-2" style={shortcutBtnStyle}>
                         {item.icon}
