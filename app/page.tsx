@@ -64,11 +64,11 @@ function smoothPath(pts: number[], fill?: boolean): string {
   return d;
 }
 function fmtKb(raw: number, status: NetworkStatus = "healthy"): string {
-  if (status === "offline") return "0 kb";
+  if (status === "offline") return "0 MB";
   const mult = status === "issues" ? 5 : 15;
   const base = status === "issues" ? 18 : 120;
   const kb = Math.round(raw * mult + base);
-  return kb >= 1000 ? `${(kb / 1000).toFixed(1)} Mb` : `${kb} kb`;
+  return kb >= 1000 ? `${(kb / 1000).toFixed(1)} MB` : `${(kb / 1000).toFixed(2)} MB`;
 }
 function fmtTot(raw: number, status: NetworkStatus = "healthy"): string {
   if (status === "offline") return "0 MB";
@@ -565,7 +565,7 @@ export default function Home() {
                           <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
                             <span className="text-[#0fc7f3]">DL</span>
                             <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>
-                              {throughputTab === "live" ? fmtKb(dlVal, netStatus) : " 854 kb"}
+                              {throughputTab === "live" ? fmtKb(dlVal, netStatus) : " 0.85 MB"}
                             </span>
                           </span>
                         </div>
@@ -574,7 +574,7 @@ export default function Home() {
                           <span className="text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>
                             <span className="text-[#8979ff]">UL</span>
                             <span className="text-[#9da1a7] inline-block text-right" style={{ minWidth: 48, fontVariantNumeric: "tabular-nums" }}>
-                              {throughputTab === "live" ? fmtKb(ulVal, netStatus) : " 854 kb"}
+                              {throughputTab === "live" ? fmtKb(ulVal, netStatus) : " 0.85 MB"}
                             </span>
                           </span>
                         </div>
@@ -652,7 +652,7 @@ export default function Home() {
                                 <path d={sp(STATIC_DL_24H)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipReveal24h)"/>
                                 <path d={sp(STATIC_UL_24H, true)} fill="url(#ulGradStatic)" clipPath="url(#clipReveal24h)"/>
                                 <path d={sp(STATIC_UL_24H)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipReveal24h)"/>
-                                <text x={SL+2} y={ST+8} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">kbps</text>
+                                <text x={SL+2} y={ST+8} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">Mbps</text>
                                 <text x={SL+2} y={ST+(SB-ST)*0.33+4} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">20</text>
                                 <text x={SL+2} y={ST+(SB-ST)*0.66+4} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">10</text>
                                 <text x={SL+2} y={SB-2} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">0</text>
