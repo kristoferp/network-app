@@ -229,7 +229,7 @@ const PulseDot = ({ color = "#22c55e" }: { color?: string }) => (
 
 // ── Shortcut button gradient ──────────────────────────────────────────────────
 const shortcutBtnStyle: React.CSSProperties = {
-  background: "linear-gradient(to bottom, rgba(34,118,252,0.08) 0%, #ffffff 100%)",
+  background: "#eef4ff",
   border: "1px solid #d3e2ff",
   borderRadius: 16,
 };
