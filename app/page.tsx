@@ -131,19 +131,19 @@ function useWaves(status: NetworkStatus) {
 
 // ── Icon components ───────────────────────────────────────────────────────────
 const GlobeIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="10"/>
     <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
   </svg>
 );
-const ChevronDown = ({ rotated, color = "currentColor" }: { rotated?: boolean; color?: string }) => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+const ChevronDown = ({ rotated }: { rotated?: boolean }) => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
     style={{ transition: "transform 0.3s", transform: rotated ? "rotate(180deg)" : "rotate(0deg)" }}>
     <polyline points="6 9 12 15 18 9"/>
   </svg>
 );
 const MenuIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b182c" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
   </svg>
 );
@@ -398,19 +398,19 @@ export default function Home() {
               touchAction: "none",
             }}>
               <div className="flex gap-3 items-center">
-                <button className="flex items-center gap-3 px-4 h-12 rounded-full flex-1" style={{
-                  background: "#f9f9f9",
-                  border: "1px solid #ffffff",
-                  boxShadow: "0px 0px 32px 0px rgba(0,0,0,0.12)",
+                <button className="flex items-center gap-2.5 px-4 h-12 rounded-full flex-1" style={{
+                  background: "rgba(249,249,249,0.95)",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
                 }}>
                   <GlobeIcon />
-                  <span className="flex-1 text-left text-[18px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Dream Router 7</span>
-                  <ChevronDown color="#9da1a7" />
+                  <span className="flex-1 text-left text-[17px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Dream Router 7</span>
+                  <span className="text-[#9da1a7]"><ChevronDown /></span>
                 </button>
-                <button className="flex items-center gap-4 px-6 h-12 rounded-full" style={{
-                  background: "#f9f9f9",
-                  border: "1px solid #ffffff",
-                  boxShadow: "0px 0px 32px 0px rgba(0,0,0,0.12)",
+                <button className="flex items-center gap-3 px-4 h-12 rounded-full" style={{
+                  background: "rgba(249,249,249,0.95)",
+                  border: "1px solid rgba(0,0,0,0.06)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
                 }}>
                   <MenuIcon />
                   <div className="w-7 h-7 rounded-full border-2 border-[#0073f1] overflow-hidden flex items-center justify-center"
