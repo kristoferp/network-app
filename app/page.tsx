@@ -621,9 +621,9 @@ export default function Home() {
                                 </svg>
                               )}
                             </div>
-                            {/* 24h tab — compact bounds */}
+                            {/* 24h tab — draws in from left on mount */}
                             <div style={{ position: "absolute", inset: 0, opacity: throughputTab === "24h" ? 1 : 0, transition: "opacity 0.25s", pointerEvents: throughputTab === "24h" ? "auto" : "none" }}>
-                              <svg width="100%" height="110" viewBox={`0 0 390 ${VH}`} preserveAspectRatio="none" style={{ display: "block" }}>
+                              <svg key={throughputTab === "24h" ? "active" : "idle"} width="100%" height="110" viewBox={`0 0 390 ${VH}`} preserveAspectRatio="none" style={{ display: "block" }}>
                                 <defs>
                                   <linearGradient id="dlGradStatic" x1="0" y1="0" x2="0" y2="1">
                                     <stop offset="0%" stopColor="#0fc7f3" stopOpacity="0.28"/>
@@ -633,6 +633,12 @@ export default function Home() {
                                     <stop offset="0%" stopColor="#8979ff" stopOpacity="0.22"/>
                                     <stop offset="100%" stopColor="#8979ff" stopOpacity="0.02"/>
                                   </linearGradient>
+                                  {/* Reveals chart left→right over 1.4s */}
+                                  <clipPath id="clipReveal24h">
+                                    <rect x={SL} y={ST - 4} height={SB - ST + 20}>
+                                      <animate attributeName="width" from="0" to={SR - SL} dur="1.4s" calcMode="spline" keySplines="0.4 0 0.2 1" keyTimes="0;1" fill="freeze"/>
+                                    </rect>
+                                  </clipPath>
                                   <clipPath id="clipStatic"><rect x={SL} y={ST} width={SR-SL} height={SB-ST+2}/></clipPath>
                                 </defs>
                                 {[ST, ST+(SB-ST)*0.33, ST+(SB-ST)*0.66, SB].map((yy,i)=>(
@@ -641,10 +647,11 @@ export default function Home() {
                                 {[0,1,2,3,4].map(i=>(
                                   <line key={i} x1={SL+i*(SR-SL)/4} y1={ST} x2={SL+i*(SR-SL)/4} y2={SB} stroke="#F0F0F0" strokeWidth="1" strokeDasharray="3,3"/>
                                 ))}
-                                <path d={sp(STATIC_DL_24H, true)} fill="url(#dlGradStatic)" clipPath="url(#clipStatic)"/>
-                                <path d={sp(STATIC_DL_24H)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipStatic)"/>
-                                <path d={sp(STATIC_UL_24H, true)} fill="url(#ulGradStatic)" clipPath="url(#clipStatic)"/>
-                                <path d={sp(STATIC_UL_24H)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipStatic)"/>
+                                {/* All chart paths use the reveal clip */}
+                                <path d={sp(STATIC_DL_24H, true)} fill="url(#dlGradStatic)" clipPath="url(#clipReveal24h)"/>
+                                <path d={sp(STATIC_DL_24H)} fill="none" stroke="#0fc7f3" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipReveal24h)"/>
+                                <path d={sp(STATIC_UL_24H, true)} fill="url(#ulGradStatic)" clipPath="url(#clipReveal24h)"/>
+                                <path d={sp(STATIC_UL_24H)} fill="none" stroke="#8979ff" strokeWidth="2" strokeLinecap="round" clipPath="url(#clipReveal24h)"/>
                                 <text x={SL+2} y={ST+8} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">kbps</text>
                                 <text x={SL+2} y={ST+(SB-ST)*0.33+4} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">20</text>
                                 <text x={SL+2} y={ST+(SB-ST)*0.66+4} textAnchor="start" fontSize="9" fill="#c0c4cb" fontFamily="Google Sans, sans-serif">10</text>
