@@ -561,17 +561,21 @@ export default function Home() {
                       <div className="flex items-center gap-6 px-4 pb-2">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-[#0fc7f3] flex-shrink-0"/>
-                          <span className="text-[#0fc7f3] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>DL</span>
-                          <span className="text-[#9da1a7] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif", width: 72, display: "inline-block", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
-                            {throughputTab === "live" ? fmtKb(dlVal, netStatus) : "43.7 GB"}
-                          </span>
+                          <div className="flex items-center gap-0.5">
+                            <span className="text-[#0fc7f3] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>DL</span>
+                            <span className="text-[#9da1a7] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif", width: 72, display: "inline-block", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                              {throughputTab === "live" ? fmtKb(dlVal, netStatus) : "43.7 GB"}
+                            </span>
+                          </div>
                         </div>
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 rounded-full bg-[#8979ff] flex-shrink-0"/>
-                          <span className="text-[#8979ff] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>UL</span>
-                          <span className="text-[#9da1a7] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif", width: 72, display: "inline-block", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
-                            {throughputTab === "live" ? fmtKb(ulVal, netStatus) : "34.2 GB"}
-                          </span>
+                          <div className="flex items-center gap-0.5">
+                            <span className="text-[#8979ff] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif" }}>UL</span>
+                            <span className="text-[#9da1a7] text-[13px]" style={{ fontFamily: "'Google Sans', sans-serif", width: 72, display: "inline-block", textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                              {throughputTab === "live" ? fmtKb(ulVal, netStatus) : "34.2 GB"}
+                            </span>
+                          </div>
                         </div>
                         {throughputTab === "24h" && (
                           <span className="text-[13px] text-[#9da1a7] ml-auto" style={{ fontFamily: "'Google Sans', sans-serif" }}>91.1 GB</span>
