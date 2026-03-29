@@ -298,6 +298,7 @@ export default function Home() {
         { w: "2%",  bg: "#ef4444" }, { w: "1",   bg: "#22c55e" },
       ],
       qualityDot: "#22c55e",
+      qualityLabel: "Excellent",
     },
     issues: {
       banner: { bg: "#fff8ec", border: "#fde8c0", Icon: WarnIcon, iconColor: "#f59e0b", title: "Minor issues detected", sub: "1 device offline · Degraded throughput" },
@@ -310,6 +311,7 @@ export default function Home() {
         { w: "15%", bg: "#ef4444" }, { w: "1",   bg: "#fb923c" },
       ],
       qualityDot: "#f59e0b",
+      qualityLabel: "Degraded",
     },
     offline: {
       banner: { bg: "#fff1f0", border: "#ffd4d0", Icon: ErrorIcon, iconColor: "#ef4444", title: "Internet connection lost", sub: "No connectivity detected" },
@@ -320,6 +322,7 @@ export default function Home() {
         { w: "100%", bg: "#d1d5db" },
       ],
       qualityDot: "#ef4444",
+      qualityLabel: "No signal",
     },
   } satisfies Record<NetworkStatus, {
     banner: { bg: string; border: string; Icon: React.ComponentType<{ color?: string }>; iconColor: string; title: string; sub: string };
@@ -328,6 +331,7 @@ export default function Home() {
     devices: { count: number; sub: string; warn: boolean; color: string };
     qualityBar: { w: string; bg: string }[];
     qualityDot: string;
+    qualityLabel: string;
   }>;
   const cfg = stateConfig[netStatus];
 
@@ -703,7 +707,7 @@ export default function Home() {
                   ) : (
                     <div className="flex items-center justify-between px-4 pb-4">
                       <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Telenor Sverige · 23.234.12.1</span>
-                      <div className="w-2 h-2 rounded-full" style={{ background: cfg.qualityDot }}/>
+                      <span className="text-[13px] font-medium" style={{ fontFamily: "'Google Sans', sans-serif", color: cfg.qualityDot }}>{cfg.qualityLabel}</span>
                     </div>
                   )}
                 </div>
