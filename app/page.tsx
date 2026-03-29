@@ -137,7 +137,7 @@ const GlobeIcon = () => (
   </svg>
 );
 const ChevronDown = ({ rotated }: { rotated?: boolean }) => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
     style={{ transition: "transform 0.3s", transform: rotated ? "rotate(180deg)" : "rotate(0deg)" }}>
     <polyline points="6 9 12 15 18 9"/>
   </svg>
@@ -479,7 +479,7 @@ export default function Home() {
                   <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Internet</p>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <PulseDot color={cfg.internet.color} />
@@ -491,7 +491,7 @@ export default function Home() {
                   <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>WiFi</p>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <PulseDot color={cfg.wifi.color} />
@@ -503,7 +503,7 @@ export default function Home() {
                   <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Devices</p>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
                     <div className="flex items-center justify-center gap-1">
                       <svg width="18" height="2" viewBox="0 0 18 2">
@@ -709,10 +709,10 @@ export default function Home() {
                   <div className="flex items-center justify-between px-4 pt-4 pb-3">
                     <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Shortcuts</p>
                     {/* + circle button */}
-                    <button style={{ width: 16, height: 16, borderRadius: "50%", border: "1.5px solid #0073f1", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
-                        <line x1="4" y1="1" x2="4" y2="7" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round"/>
-                        <line x1="1" y1="4" x2="7" y2="4" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round"/>
+                    <button style={{ width: 24, height: 24, borderRadius: "50%", border: "1.5px solid #0073f1", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <line x1="6" y1="1" x2="6" y2="11" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="1" y1="6" x2="11" y2="6" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round"/>
                       </svg>
                     </button>
                   </div>
@@ -738,7 +738,7 @@ export default function Home() {
                     <span className="text-[13px] text-[#9da1a7] flex-1" style={{ fontFamily: "'Google Sans', sans-serif" }}>External</span>
                     {/* → arrow */}
                     <button>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                       </svg>
                     </button>
