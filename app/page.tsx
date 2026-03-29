@@ -137,7 +137,7 @@ const GlobeIcon = () => (
   </svg>
 );
 const ChevronDown = ({ rotated }: { rotated?: boolean }) => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
     style={{ transition: "transform 0.3s", transform: rotated ? "rotate(180deg)" : "rotate(0deg)" }}>
     <polyline points="6 9 12 15 18 9"/>
   </svg>
@@ -183,7 +183,7 @@ const GearIcon = ({ color = "#1c1c1e" }: { color?: string }) => (
 );
 const NetIcon = ({ color = "#22C55E" }: { color?: string }) => (
   <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M3.75 14.75V11.75C3.75 11.4848 3.85536 11.2304 4.04289 11.0429C4.23043 10.8554 4.48478 10.75 4.75 10.75H16.75C17.0152 10.75 17.2696 10.8554 17.4571 11.0429C17.6446 11.2304 17.75 11.4848 17.75 11.75V14.75M10.75 10.75V6.75M15.75 14.75H19.75C20.3023 14.75 20.75 15.1977 20.75 15.75V19.75C20.75 20.3023 20.3023 20.75 19.75 20.75H15.75C15.1977 20.75 14.75 20.3023 14.75 19.75V15.75C14.75 15.1977 15.1977 14.75 15.75 14.75ZM1.75 14.75H5.75C6.30228 14.75 6.75 15.1977 6.75 15.75V19.75C6.75 20.3023 6.30228 20.75 5.75 20.75H1.75C1.19772 20.75 0.75 20.3023 0.75 19.75V15.75C0.75 15.1977 1.19772 14.75 1.75 14.75ZM8.75 0.75H12.75C13.3023 0.75 13.75 1.19772 13.75 1.75V5.75C13.75 6.30228 13.3023 6.75 12.75 6.75H8.75C8.19772 6.75 7.75 6.30228 7.75 5.75V1.75C7.75 1.19772 8.19772 0.75 8.75 0.75Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3.75 14.75V11.75C3.75 11.4848 3.85536 11.2304 4.04289 11.0429C4.23043 10.8554 4.48478 10.75 4.75 10.75H16.75C17.0152 10.75 17.2696 10.8554 17.4571 11.0429C17.6446 11.2304 17.75 11.4848 17.75 11.75V14.75M10.75 10.75V6.75M15.75 14.75H19.75C20.3023 14.75 20.75 15.1977 20.75 15.75V19.75C20.75 20.3023 20.3023 20.75 19.75 20.75H15.75C15.1977 20.75 14.75 20.3023 14.75 19.75V15.75C14.75 15.1977 15.1977 14.75 15.75 14.75ZM1.75 14.75H5.75C6.30228 14.75 6.75 15.1977 6.75 15.75V19.75C6.75 20.3023 6.30228 20.75 5.75 20.75H1.75C1.19772 20.75 0.75 20.3023 0.75 19.75V15.75C0.75 15.1977 1.19772 14.75 1.75 14.75ZM8.75 0.75H12.75C13.3023 0.75 13.75 1.19772 13.75 1.75V5.75C13.75 6.30228 13.3023 6.75 12.75 6.75H8.75C8.19772 6.75 7.75 6.30228 7.75 5.75V1.75C7.75 1.19772 8.19772 0.75 8.75 0.75Z" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>
 );
 const WarnIcon = ({ color = "#f59e0b" }: { color?: string }) => (
@@ -201,18 +201,18 @@ const ErrorIcon = ({ color = "#ef4444" }: { color?: string }) => (
   </svg>
 );
 const SpeedIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l4.5-4.5"/><circle cx="12" cy="12" r="1" fill="#0073f1"/>
   </svg>
 );
 const TopoIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
     <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
   </svg>
 );
 const BoxIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
     <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
   </svg>
@@ -479,7 +479,7 @@ export default function Home() {
                   <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Internet</p>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <PulseDot color={cfg.internet.color} />
@@ -491,7 +491,7 @@ export default function Home() {
                   <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>WiFi</p>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <PulseDot color={cfg.wifi.color} />
@@ -503,7 +503,7 @@ export default function Home() {
                   <div className="flex-1 rounded-2xl p-3 flex flex-col justify-between" style={{ border: "1px solid #E7E7E7", height: 110 }}>
                     <div className="flex items-center justify-between">
                       <p className="text-[13px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Devices</p>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c8c8cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
                     <div className="flex items-center justify-center gap-1">
                       <svg width="18" height="2" viewBox="0 0 18 2">
@@ -738,7 +738,7 @@ export default function Home() {
                     <span className="text-[13px] text-[#9da1a7] flex-1" style={{ fontFamily: "'Google Sans', sans-serif" }}>External</span>
                     {/* → arrow */}
                     <button>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                       </svg>
                     </button>
