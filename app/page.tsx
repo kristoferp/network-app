@@ -201,18 +201,18 @@ const ErrorIcon = ({ color = "#ef4444" }: { color?: string }) => (
   </svg>
 );
 const SpeedIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l4.5-4.5"/><circle cx="12" cy="12" r="1" fill="#6b7280"/>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l4.5-4.5"/><circle cx="12" cy="12" r="1" fill="#0073f1"/>
   </svg>
 );
 const TopoIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
     <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
   </svg>
 );
 const BoxIcon = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
     <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
   </svg>
@@ -229,9 +229,8 @@ const PulseDot = ({ color = "#22c55e" }: { color?: string }) => (
 
 // ── Shortcut button gradient ──────────────────────────────────────────────────
 const shortcutBtnStyle: React.CSSProperties = {
-  border: "1px solid #E7E7E7",
-  background: "linear-gradient(180deg, #f6f6f7 0%, #ffffff 100%)",
-  borderRadius: 16,
+  background: "rgba(0, 115, 241, 0.05)",
+  borderRadius: 14,
 };
 
 // ── Device frame wrapper (desktop only) ───────────────────────────────────────
@@ -707,23 +706,27 @@ export default function Home() {
 
                 {/* ── Shortcuts card ───────────────────────────────────────── */}
                 <div className="rounded-2xl flex flex-col" style={{ border: "1px solid #E7E7E7", overflow: "hidden" }}>
-                  <div className="px-4 pt-4 pb-3">
+                  <div className="flex items-center justify-between px-4 pt-4 pb-3">
                     <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Shortcuts</p>
+                    {/* + circle button */}
+                    <button style={{ width: 26, height: 26, borderRadius: "50%", border: "1.5px solid #0073f1", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <line x1="6" y1="1" x2="6" y2="11" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round"/>
+                        <line x1="1" y1="6" x2="11" y2="6" stroke="#0073f1" strokeWidth="1.5" strokeLinecap="round"/>
+                      </svg>
+                    </button>
                   </div>
-                  <div className="flex gap-2 px-4 pb-3">
+                  <div className="flex gap-2 px-4 pb-4">
                     {[
                       { icon: <SpeedIcon />, label: "ISP Speed" },
                       { icon: <TopoIcon />, label: "Topology" },
                       { icon: <BoxIcon />, label: "AR" },
                     ].map(item => (
-                      <button key={item.label} className="flex-1 p-2 flex flex-col items-center gap-1.5" style={shortcutBtnStyle}>
+                      <button key={item.label} className="flex-1 py-3 flex flex-col items-center gap-2" style={shortcutBtnStyle}>
                         {item.icon}
                         <span className="text-[12px] text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{item.label}</span>
                       </button>
                     ))}
-                  </div>
-                  <div className="flex justify-end px-4 pb-4">
-                    <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Add +</button>
                   </div>
                 </div>
 
@@ -732,22 +735,25 @@ export default function Home() {
                   <div className="flex items-center px-4 pt-4 pb-3 gap-2">
                     <p className="text-[14px] font-semibold text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Applications</p>
                     <div style={{ width: 1, height: 14, background: "#d6d8db" }}/>
-                    <span className="text-[13px] text-[#9da1a7]" style={{ fontFamily: "'Google Sans', sans-serif" }}>External</span>
+                    <span className="text-[13px] text-[#9da1a7] flex-1" style={{ fontFamily: "'Google Sans', sans-serif" }}>External</span>
+                    {/* → arrow */}
+                    <button>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0073f1" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                      </svg>
+                    </button>
                   </div>
-                  <div className="flex gap-2 px-4 pb-3">
+                  <div className="flex gap-2 px-4 pb-4">
                     {[
                       { icon: <BoxIcon />, label: "AR", sub: "Opens WiFiMan" },
-                      { icon: <TopoIcon />, label: "Topology", sub: "Opens WiFiMan" },
+                      { icon: <TopoIcon />, label: "Topology", sub: "Opens Design" },
                     ].map(item => (
-                      <button key={item.label} className="flex-1 p-2 flex flex-col items-center gap-1.5" style={shortcutBtnStyle}>
+                      <button key={item.label} className="flex-1 py-3 flex flex-col items-center gap-2" style={shortcutBtnStyle}>
                         {item.icon}
                         <span className="text-[12px] text-[#0b182c]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{item.label}</span>
-                        <span className="text-[11px] text-[#5f6369]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{item.sub}</span>
+                        <span className="text-[11px] font-medium text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>{item.sub}</span>
                       </button>
                     ))}
-                  </div>
-                  <div className="flex justify-end px-4 pb-4">
-                    <button className="text-[13px] font-semibold text-[#0073f1]" style={{ fontFamily: "'Google Sans', sans-serif" }}>Show more</button>
                   </div>
                 </div>
 
