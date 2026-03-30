@@ -82,7 +82,8 @@ export default function CaseStudy() {
           {/* Right: router photo */}
           <Fade delay="d1">
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <RouterPhoto />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/router.png" alt="UniFi Dream Router 7" style={{ width: "100%", maxWidth: 380, objectFit: "contain" }}/>
             </div>
           </Fade>
         </div>
@@ -280,50 +281,6 @@ function Label({ children }: { children: React.ReactNode }) {
   return <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#0073f1" }}>{children}</p>;
 }
 
-function RouterPhoto() {
-  // Faithful CSS reproduction of the UniFi Dream Router 7 photo from Figma
-  return (
-    <div style={{ position: "relative", width: 320, height: 400 }}>
-      {/* Shadow */}
-      <div style={{
-        position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)",
-        width: 200, height: 24, borderRadius: "50%",
-        background: "radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%)",
-      }}/>
-      {/* Body */}
-      <div style={{
-        position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -54%)",
-        width: 200, height: 300,
-        borderRadius: "50% 50% 40% 40% / 30% 30% 26% 26%",
-        background: "linear-gradient(170deg, #ffffff 0%, #f0f2f5 60%, #e4e7ec 100%)",
-        boxShadow: "2px 8px 40px rgba(0,0,0,0.13), 0 0 0 1px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.8)",
-        overflow: "hidden",
-        display: "flex", flexDirection: "column", alignItems: "center",
-      }}>
-        {/* Blue LED ring at top */}
-        <div style={{
-          width: "110%", height: 6, marginTop: -1,
-          background: "linear-gradient(90deg, transparent 5%, #1a8fff 20%, #0cf 50%, #1a8fff 80%, transparent 95%)",
-          boxShadow: "0 0 12px 3px rgba(0,180,255,0.5)",
-          borderRadius: "0 0 50% 50%",
-        }}/>
-        {/* Small display screen in middle */}
-        <div style={{
-          marginTop: 80, width: 44, height: 58,
-          borderRadius: 8,
-          background: "#0a1628",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, padding: 6,
-        }}>
-          <div style={{ width: "80%", height: 3, borderRadius: 2, background: "#22c55e" }}/>
-          <div style={{ width: "70%", height: 2, borderRadius: 2, background: "rgba(255,255,255,0.3)" }}/>
-          <div style={{ width: "70%", height: 2, borderRadius: 2, background: "rgba(255,255,255,0.3)" }}/>
-          <div style={{ width: "60%", height: 6, borderRadius: 3, background: "#0073f1", marginTop: 2 }}/>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function ConnectingIllustration() {
   return (
