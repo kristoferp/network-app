@@ -76,9 +76,23 @@ export default function CaseStudy() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        @keyframes spin-loader {
-          from { transform: rotate(-90deg); }
-          to   { transform: rotate(270deg); }
+        /* Circle fill: dot → full → hold → back to dot */
+        @keyframes fill-circle-d {
+          0%   { stroke-dashoffset: 1848; animation-timing-function: ease-out; }
+          40%  { stroke-dashoffset: 0;    animation-timing-function: linear;   }
+          70%  { stroke-dashoffset: 0;    animation-timing-function: ease-in;  }
+          100% { stroke-dashoffset: 1848; }
+        }
+        @keyframes fill-circle-m {
+          0%   { stroke-dashoffset: 654;  animation-timing-function: ease-out; }
+          40%  { stroke-dashoffset: 0;    animation-timing-function: linear;   }
+          70%  { stroke-dashoffset: 0;    animation-timing-function: ease-in;  }
+          100% { stroke-dashoffset: 654;  }
+        }
+        /* Staggered loading dots */
+        @keyframes dot-bounce {
+          0%, 80%, 100% { transform: translateY(0);   opacity: 0.25; }
+          40%           { transform: translateY(-3px); opacity: 1;    }
         }
       `}</style>
 
@@ -246,15 +260,15 @@ function Slide2() {
         { x: 1522, time: "09:24",             event: "Setup complete",  red: false, bold: false },
       ] as const).map((e, i) => (
         <React.Fragment key={i}>
-          {/* Time label — above the line */}
+          {/* Time label — above the line; first item left-aligned to match title */}
           <p style={{
-            ...abs(e.x, e.red ? 440 : 454), ...f(0.12 + i * 0.06),
-            fontSize: e.red ? fs(26) : fs(26),
+            ...abs(e.x, e.red ? 442 : 456), ...f(0.12 + i * 0.06),
+            fontSize: e.red ? fs(22) : fs(20),
             fontWeight: e.red ? 600 : 500,
             fontStyle: e.red ? "italic" : "normal",
             color: e.red ? "#ef4444" : "#374151",
             whiteSpace: "nowrap",
-            transform: "translateX(-50%)",
+            transform: i === 0 ? "translateX(0)" : "translateX(-50%)",
           }}>{e.time}</p>
 
           {/* Dot — centered on the line */}
@@ -262,8 +276,8 @@ function Slide2() {
             position: "absolute",
             left: `${(e.x / 1920) * 100}%`,
             top: `${(517 / 1080) * 100}%`,
-            width: e.red ? fs(14) : fs(11),
-            height: e.red ? fs(14) : fs(11),
+            width: e.red ? fs(13) : fs(10),
+            height: e.red ? fs(13) : fs(10),
             borderRadius: "50%",
             background: e.red ? "#ef4444" : "#374151",
             transform: "translate(-50%, -50%)",
@@ -272,12 +286,13 @@ function Slide2() {
             transition: `opacity 0.3s ease ${0.9 + i * 0.08}s`,
           }} />
 
-          {/* Event label — below the line */}
+          {/* Event label — below the line; first item left-aligned */}
           {e.event ? (
             <p style={{
-              ...abs(e.x, 545), ...f(0.18 + i * 0.06),
-              fontSize: fs(22), color: "#374151",
-              transform: "translateX(-50%)", whiteSpace: "nowrap",
+              ...abs(e.x, 548), ...f(0.18 + i * 0.06),
+              fontSize: fs(18), color: "#374151",
+              transform: i === 0 ? "translateX(0)" : "translateX(-50%)",
+              whiteSpace: "nowrap",
             }}>{e.event}</p>
           ) : null}
         </React.Fragment>
@@ -285,18 +300,18 @@ function Slide2() {
 
       <p style={{ ...abs(1740, 540), ...f(0.6), fontSize: fs(28) }}>🎉</p>
 
-      {/* Dashed red box with text inside — equal padding all sides */}
+      {/* Dashed red box — moved below event labels to avoid overlap */}
       <div style={{
-        ...abs(577, 543),
+        ...abs(577, 610),
         width: wp(476),
         border: "1px dashed #ef4444", borderRadius: 4,
-        padding: fs(18),
+        padding: fs(16),
         opacity: v ? 1 : 0, transition: "opacity 0.5s ease 0.3s",
       }}>
-        <p style={{ fontSize: fs(24), color: "#000", lineHeight: 1.5 }}>
+        <p style={{ fontSize: fs(20), color: "#000", lineHeight: 1.5 }}>
           Troubleshooting, testing different ports etc. Called ISP (bridged a port).
         </p>
-        <p style={{ fontSize: fs(24), color: "#ef4444", fontWeight: 500, marginTop: "0.3em" }}>
+        <p style={{ fontSize: fs(20), color: "#ef4444", fontWeight: 500, marginTop: "0.3em" }}>
           App guidance did not help
         </p>
       </div>
@@ -320,11 +335,11 @@ function Slide2() {
           style={{ width: "100%", display: "block", marginTop: "-37%" }} />
       </div>
 
-      {/* Diagonal line — starts at right edge of box (x=1053), not inside it */}
+      {/* Diagonal line — from box right edge, goes down-right to the image */}
       <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", overflow: "visible" }}>
         <line
-          x1={`${(1053 / 1920) * 100}%`} y1={`${(671 / 1080) * 100}%`}
-          x2={`${(1395 / 1920) * 100}%`} y2={`${(660 / 1080) * 100}%`}
+          x1={`${(1053 / 1920) * 100}%`} y1={`${(700 / 1080) * 100}%`}
+          x2={`${(1395 / 1920) * 100}%`} y2={`${(870 / 1080) * 100}%`}
           stroke="#ef4444" strokeWidth="1" strokeDasharray="4 4"
           strokeOpacity={v ? 0.5 : 0}
           style={{ transition: "stroke-opacity 0.5s ease 0.9s" }}
@@ -431,7 +446,7 @@ function Slide5() {
       <img src="/s5-ring-inner.png" alt="" style={{ ...abs(1142, 194), width: wp(568), height: hp(568), ...f(0.2) }} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/s5-router.png" alt="" style={{ ...abs(1322, 317), width: wp(208), objectFit: "contain", ...f(0.25) }} />
-      {/* Blue circular loader — centered on the ring, starts at 12 o'clock */}
+      {/* Blue fill-circle loader — dot → full circle → hold → repeat */}
       <svg
         viewBox="0 0 1920 1080"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", overflow: "visible", ...f(0.3) }}
@@ -442,19 +457,18 @@ function Slide5() {
           stroke="#0073f1"
           strokeWidth={5}
           strokeLinecap="round"
-          strokeDasharray={`${0.75 * 2 * Math.PI * 294} ${0.25 * 2 * Math.PI * 294}`}
-          style={{
-            transformBox: "fill-box",
-            transformOrigin: "center",
-            animation: v ? "spin-loader 1.4s linear infinite" : "none",
-          } as React.CSSProperties}
+          strokeDasharray="1848 1848"
+          transform="rotate(-90 1426.5 478.5)"
+          style={{ animation: v ? "fill-circle-d 4s infinite" : "none" } as React.CSSProperties}
         />
       </svg>
       <p style={{
         ...abs(1425.5, 830), transform: "translateX(-50%)", width: wp(591),
         ...f(0.35), fontSize: fs(50), fontWeight: 500, color: "#000", textAlign: "center",
       }}>
-        Connecting...
+        Connecting{[0, 0.2, 0.4].map((d, i) => (
+          <span key={i} style={{ display: "inline-block", animation: `dot-bounce 1.4s infinite ${d}s` }}>.</span>
+        ))}
       </p>
     </div>
   );
@@ -481,23 +495,22 @@ function Slide5Mobile() {
         <img src="/s5-ring-inner.png" alt="" style={{ position: "absolute", inset: "4%", width: "92%", height: "92%" }} />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/s5-router.png" alt="" style={{ position: "absolute", left: "28%", top: "22%", width: "44%", objectFit: "contain" }} />
-        {/* Blue circular loader centered on the ring */}
+        {/* Blue fill-circle loader */}
         <svg viewBox="0 0 220 220" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", overflow: "visible" }}>
           <circle
             cx={110} cy={110} r={104}
             fill="none" stroke="#0073f1" strokeWidth={3} strokeLinecap="round"
-            strokeDasharray={`${0.75 * 2 * Math.PI * 104} ${0.25 * 2 * Math.PI * 104}`}
-            style={{
-              transformBox: "fill-box",
-              transformOrigin: "center",
-              animation: v ? "spin-loader 1.4s linear infinite" : "none",
-            } as React.CSSProperties}
+            strokeDasharray="654 654"
+            transform="rotate(-90 110 110)"
+            style={{ animation: v ? "fill-circle-m 4s infinite" : "none" } as React.CSSProperties}
           />
         </svg>
       </div>
 
       <p style={{ fontSize: 22, fontWeight: 500, textAlign: "center", color: "#000", ...f(0.2) }}>
-        Connecting...
+        Connecting{[0, 0.2, 0.4].map((d, i) => (
+          <span key={i} style={{ display: "inline-block", animation: `dot-bounce 1.4s infinite ${d}s` }}>.</span>
+        ))}
       </p>
 
       <div style={f(0.3)}>
