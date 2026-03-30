@@ -231,9 +231,14 @@ function Slide2() {
       <div style={{ ...abs(86, 517), width: wp(1632), height: "1px", overflow: "hidden" }}>
         <div style={{ height: "100%", background: "#d1d5db", width: v ? "100%" : "0%", transition: "width 1.2s cubic-bezier(0.4,0,0.2,1) 0.3s" }} />
       </div>
-      {/* Red segment */}
-      <div style={{ ...abs(387, 514), height: "3px", overflow: "hidden", width: wp(745) }}>
-        <div style={{ height: "100%", background: "#ef4444", width: v ? "100%" : "0%", transition: "width 0.8s cubic-bezier(0.4,0,0.2,1) 0.8s" }} />
+      {/* Red dashed segment — matches box border style */}
+      <div style={{ ...abs(387, 514), height: "2px", overflow: "hidden", width: wp(745) }}>
+        <div style={{
+          height: "100%",
+          backgroundImage: "repeating-linear-gradient(90deg, #ef4444 0px, #ef4444 6px, transparent 6px, transparent 12px)",
+          width: v ? "100%" : "0%",
+          transition: "width 0.8s cubic-bezier(0.4,0,0.2,1) 0.8s",
+        }} />
       </div>
 
       {/* Time labels */}
@@ -260,7 +265,14 @@ function Slide2() {
       <p style={{ ...abs(1308, 545), ...f(0.45), fontSize: fs(24), color: "#000" }}>Connected</p>
       <p style={{ ...abs(1522, 545), ...f(0.50), fontSize: fs(24), color: "#000" }}>Setup Complete!</p>
 
-      <div style={{ ...abs(589, 563), width: wp(443), ...f(0.3) }}>
+      {/* Dashed red box with text inside — equal padding all sides */}
+      <div style={{
+        ...abs(577, 543),
+        width: wp(476),
+        border: "1px dashed #ef4444", borderRadius: 4,
+        padding: fs(18),
+        opacity: v ? 1 : 0, transition: "opacity 0.5s ease 0.3s",
+      }}>
         <p style={{ fontSize: fs(24), color: "#000", lineHeight: 1.5 }}>
           Troubleshooting, testing different ports etc. Called ISP (bridged a port).
         </p>
@@ -269,20 +281,12 @@ function Slide2() {
         </p>
       </div>
 
-      <div style={{
-        ...abs(577, 543),
-        width: wp(454), height: hp(128),
-        border: "1px dashed #ef4444", borderRadius: 4,
-        pointerEvents: "none",
-        opacity: v ? 1 : 0, transition: "opacity 0.5s ease 0.3s",
-      }} />
-
       <p style={{ ...abs(967, 889), width: wp(443), ...f(0.7), fontSize: fs(24), color: "#000", lineHeight: 1.55 }}>
         There is a help section in the app but nothing about resetting to factory settings.
       </p>
 
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/device-setup-help.png" alt="Device Setup Help"
+      <img src="/help-screen.png" alt="UniFi Help Screen"
         style={{ ...abs(1395, 673), width: wp(355), borderRadius: fs(50), boxShadow: "0 4px 24px rgba(0,0,0,0.15)", ...f(0.65) }} />
 
       <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", overflow: "visible" }}>
