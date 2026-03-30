@@ -105,26 +105,6 @@ export default function CaseStudy() {
           {/* Timeline track */}
           <TimelineSection />
 
-          {/* Bottom: note + phone screenshot */}
-          <Fade delay="d3">
-            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 48, alignItems: "flex-start", marginTop: 40 }}>
-              {/* Note text */}
-              <div style={{ paddingLeft: "32%" }}>
-                <p style={{ fontSize: "clamp(13px, 1.4vw, 20px)", color: "#000", lineHeight: 1.6, maxWidth: 420 }}>
-                  There is a help section in the app but nothing about resetting to factory settings.
-                </p>
-              </div>
-              {/* Phone screenshot */}
-              <div style={{ position: "relative" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/device-setup-help.png"
-                  alt="Device Setup Help screen"
-                  style={{ width: 220, borderRadius: 24, boxShadow: "0 8px 32px rgba(0,0,0,0.15)", display: "block" }}
-                />
-              </div>
-            </div>
-          </Fade>
         </div>
       </section>
 
@@ -267,91 +247,147 @@ function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.2 });
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.15 });
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
 
-  // Positions as % of total width (from Figma: total line 86→1718px on 1920 canvas)
-  // 07:57=0%, 08:00=13.7%, 1h22m start=17.6%, 1h22m end=56.6%, 09:22=58.2%, 09:23=73.1%, 09:24=85.2%
-  const stops = [
-    { pct: 0,    time: "07:57",           italic: false, label: "App opened",           highlight: false },
-    { pct: 13.7, time: "08:00",           italic: false, label: "0 devices found",       highlight: false },
-    { pct: 17.6, time: "1 hour 22 minutes", italic: true, label: "Troubleshooting, testing different ports etc. Called ISP (bridged a port).", note: "App guidance did not help", highlight: true },
-    { pct: 58.2, time: "09:22",           italic: false, label: "Factory reset",         highlight: false },
-    { pct: 73.1, time: "09:23",           italic: false, label: "Connected",             highlight: false },
-    { pct: 85.2, time: "09:24",           italic: false, label: "Setup Complete!",       emoji: "🎉", highlight: false },
+  // Grid columns match Figma proportions (1920px canvas, line 86→1718px):
+  // col1=250, col2=282, col3=463, col4=227, col5=214, col6=196  → roughly 1 : 1.1 : 1.85 : 0.9 : 0.85 : 0.78
+  const cols = [
+    { time: "07:57",            italic: false, red: false, label: "App opened" },
+    { time: "08:00",            italic: false, red: false, label: "0 devices found" },
+    { time: "1 hour 22 minutes",italic: true,  red: true,  label: "Troubleshooting, testing different ports etc. Called ISP (bridged a port).", note: "App guidance did not help" },
+    { time: "09:22",            italic: false, red: false, label: "Factory reset" },
+    { time: "09:23",            italic: false, red: false, label: "Connected" },
+    { time: "09:24",            italic: false, red: false, label: "Setup Complete!", emoji: "🎉" },
   ];
 
-  // Red segment: from 08:00 (13.7%) to 09:22 (58.2%) — spans the 1h22m lost period
-  const redStart = 13.7;
-  const redEnd   = 58.2;
+  const LINE_Y = 44; // px from top of grid rows — where the line sits
 
   return (
-    <div ref={ref} style={{ position: "relative", paddingBottom: 80 }}>
-      {/* ── Gray base line ── */}
+    <div ref={ref} style={{ position: "relative" }}>
+
+      {/* ── Timeline grid ── */}
       <div style={{
-        position: "absolute", top: 36, left: 0, right: 0, height: 1,
-        background: "#d1d5db",
-        overflow: "hidden",
+        display: "grid",
+        gridTemplateColumns: "1fr 1.1fr 1.85fr 0.9fr 0.85fr 0.78fr",
+        position: "relative",
       }}>
-        {/* Animated fill */}
+
+        {/* Gray base line — full width, absolute */}
         <div style={{
-          height: "100%", background: "#d1d5db",
-          width: visible ? "100%" : "0%",
-          transition: "width 1.2s cubic-bezier(0.4,0,0.2,1)",
+          position: "absolute", top: LINE_Y, left: 0, right: 0, height: 1,
+          overflow: "hidden", zIndex: 0,
+        }}>
+          <div style={{
+            height: "100%", background: "#d1d5db",
+            width: visible ? "100%" : "0%",
+            transition: "width 1.2s cubic-bezier(0.4,0,0.2,1)",
+          }}/>
+        </div>
+
+        {/* Red segment: col2 start → col4 start = from ~47.7% to ~84.6% of total */}
+        {/* In grid terms: starts at end of col1 (1fr) and ends at start of col4 */}
+        {/* We compute by summing col widths: col1=1, col2=1.1, col3=1.85 → red goes col1-end to col4-start */}
+        {/* Left %: 1/(1+1.1+1.85+0.9+0.85+0.78) = 1/7.48 = 13.4% */}
+        {/* Right %: (1+1.1+1.85)/(7.48) = 3.95/7.48 = 52.8% */}
+        <div style={{
+          position: "absolute", top: LINE_Y - 1, height: 3,
+          left: "13.4%",
+          width: visible ? "39.4%" : "0%",
+          background: "#ef4444", borderRadius: 2, zIndex: 1,
+          transition: "width 0.9s cubic-bezier(0.4,0,0.2,1) 0.5s",
         }}/>
+
+        {/* Columns */}
+        {cols.map((col, i) => (
+          <div key={i} style={{
+            paddingTop: 0, paddingRight: i < 5 ? 16 : 0,
+            opacity: visible ? 1 : 0,
+            transition: `opacity 0.45s ease ${0.2 + i * 0.08}s`,
+            position: "relative",
+          }}>
+            {/* Time label row */}
+            <p style={{
+              fontSize: "clamp(13px, 1.3vw, 20px)",
+              fontStyle: col.italic ? "italic" : "normal",
+              color: col.red ? "#ef4444" : "#000",
+              whiteSpace: col.italic ? "nowrap" : "normal",
+              lineHeight: 1.2,
+              height: LINE_Y - 8,
+              display: "flex", alignItems: "flex-end",
+              paddingBottom: 0,
+            }}>
+              {col.time}{col.emoji ? ` ${col.emoji}` : ""}
+            </p>
+
+            {/* Spacer for line height */}
+            <div style={{ height: 16 }}/>
+
+            {/* Label below line */}
+            <div style={{ position: "relative", paddingTop: 8 }}>
+              <p style={{ fontSize: "clamp(11px, 1.1vw, 17px)", color: "#000", lineHeight: 1.55 }}>{col.label}</p>
+              {col.note && (
+                <p style={{ fontSize: "clamp(10px, 1vw, 16px)", color: "#ef4444", fontWeight: 500, marginTop: 6 }}>{col.note}</p>
+              )}
+              {/* Dashed red box — wraps the troubleshooting content */}
+              {col.red && (
+                <div style={{
+                  position: "absolute",
+                  top: -4, left: -8, right: 0, bottom: -8,
+                  border: "1px dashed #ef4444",
+                  borderRadius: 4,
+                  pointerEvents: "none",
+                }}/>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* ── Red segment (draws in after gray line) ── */}
-      <div style={{
-        position: "absolute", top: 33, height: 3, borderRadius: 2,
-        left: `${redStart}%`, width: visible ? `${redEnd - redStart}%` : "0%",
-        background: "#ef4444",
-        transformOrigin: "left center",
-        transition: "width 0.9s cubic-bezier(0.4,0,0.2,1) 0.6s",
-      }}/>
+      {/* ── Bottom: note + phone (with SVG connecting line) ── */}
+      <div style={{ position: "relative", marginTop: 48, display: "grid", gridTemplateColumns: "1fr auto", alignItems: "flex-start", gap: 32 }}>
 
-      {/* ── Stops ── */}
-      {stops.map((s, i) => (
-        <div key={i} style={{
-          position: "absolute", left: `${s.pct}%`,
-          display: "flex", flexDirection: "column", alignItems: "flex-start",
-          opacity: visible ? 1 : 0,
-          transition: `opacity 0.5s ease ${0.3 + i * 0.1}s`,
-        }}>
-          {/* Time label */}
-          <p style={{
-            fontSize: "clamp(12px, 1.4vw, 22px)",
-            fontStyle: s.italic ? "italic" : "normal",
-            color: s.highlight ? "#ef4444" : "#000",
-            whiteSpace: "nowrap", marginBottom: 8, lineHeight: 1,
-          }}>
-            {s.time}{(s as {emoji?: string}).emoji ? ` ${(s as {emoji?: string}).emoji}` : ""}
+        {/* SVG line from dashed box (col3 area, ~top-left of note) → phone image top-left */}
+        {/* We draw it as an overlay SVG covering the full bottom area */}
+        <svg
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", overflow: "visible", zIndex: 2 }}
+          preserveAspectRatio="none"
+        >
+          {/* Line goes from ~52% x, 0% y → 100% x, 20% y  (approximate, tuned to match Figma angle) */}
+          <line
+            x1="38%" y1="0"
+            x2="100%" y2="30%"
+            stroke="#ef4444" strokeWidth="1"
+            strokeOpacity={visible ? 0.5 : 0}
+            style={{ transition: "stroke-opacity 0.5s ease 1.2s" }}
+          />
+        </svg>
+
+        {/* Note text — positioned in col3 area (~32–53% of width) */}
+        <div style={{ paddingLeft: "32%" }}>
+          <p style={{ fontSize: "clamp(13px, 1.2vw, 20px)", color: "#000", lineHeight: 1.6, maxWidth: 380 }}>
+            There is a help section in the app but nothing about resetting to factory settings.
           </p>
-          {/* Dot on line */}
-          <div style={{ width: 8, height: 8 }} />
-
-          {/* Label below line */}
-          <div style={{ marginTop: 12, maxWidth: i === 2 ? 240 : 160 }}>
-            <p style={{ fontSize: "clamp(11px, 1.1vw, 18px)", color: "#000", lineHeight: 1.5 }}>{s.label}</p>
-            {s.note && (
-              <p style={{ fontSize: "clamp(10px, 1vw, 16px)", color: "#ef4444", fontWeight: 500, marginTop: 4 }}>{s.note}</p>
-            )}
-            {/* Dashed red box around the troubleshooting item */}
-            {s.highlight && (
-              <div style={{
-                position: "absolute", top: 56,
-                left: -8, right: -40,
-                bottom: -12,
-                border: "1px dashed #ef4444",
-                borderRadius: 4,
-                pointerEvents: "none",
-              }}/>
-            )}
-          </div>
         </div>
-      ))}
+
+        {/* Phone screenshot */}
+        <div style={{ flexShrink: 0 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/device-setup-help.png"
+            alt="Device Setup Help screen"
+            style={{
+              width: 220, borderRadius: 24,
+              boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+              display: "block",
+              opacity: visible ? 1 : 0,
+              transition: "opacity 0.5s ease 0.8s",
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
