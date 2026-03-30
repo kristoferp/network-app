@@ -93,49 +93,35 @@ export default function CaseStudy() {
           SLIDE 2 — TIMELINE
       ══════════════════════════════════════════ */}
       <section id="timeline" ref={reg("timeline")}
-        style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "80px 8vw", background: "#fff" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%" }}>
+        style={{ minHeight: "100vh", display: "flex", alignItems: "flex-start", padding: "80px 6vw 80px", background: "#fff" }}>
+        <div style={{ width: "100%", maxWidth: 1400, margin: "0 auto" }}>
+
+          {/* Title */}
           <Fade>
-            <Label>Getting started</Label>
-            <h2 style={{ fontSize: "clamp(28px, 4vw, 56px)", fontWeight: 700, color: "#0b182c", margin: "12px 0 8px" }}>Getting started — timeline</h2>
-            <p style={{ fontSize: 14, color: "#9da1a7", marginBottom: 56 }}>UniFi Dream 7 router + UniFi App</p>
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 72px)", fontWeight: 400, color: "#000", lineHeight: 1.1, marginBottom: 12 }}>Getting started - timeline</h2>
+            <p style={{ fontSize: "clamp(14px, 1.6vw, 24px)", color: "#000", marginBottom: 56 }}>UniFi Dream 7 router + UniFi App</p>
           </Fade>
 
-          {/* Timeline */}
-          <Fade delay="d1">
-            <div style={{ position: "relative", paddingBottom: 32 }}>
-              {/* Horizontal line */}
-              <div style={{ position: "absolute", top: 22, left: 0, right: 0, height: 1, background: "#e8eef8" }}/>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 16 }}>
-                {[
-                  { time: "07:57", event: "App opened", note: "", highlight: false },
-                  { time: "08:00", event: "0 devices found", note: "", highlight: false },
-                  { time: "1h 22min", event: "Troubleshooting, testing different ports, called ISP (bridged a port).", note: "App guidance did not help", highlight: true },
-                  { time: "09:22", event: "Factory reset", note: "", highlight: false },
-                  { time: "09:23", event: "Connected", note: "", highlight: false },
-                  { time: "09:24", event: "Setup Complete! 🎉", note: "", highlight: false },
-                ].map((step, i) => (
-                  <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                    <p style={{ fontSize: 12, fontWeight: 600, color: step.highlight ? "#ef4444" : "#0b182c", marginBottom: 16, whiteSpace: "nowrap" }}>{step.time}</p>
-                    <div style={{ width: 10, height: 10, borderRadius: "50%", border: `2px solid ${step.highlight ? "#ef4444" : "#0073f1"}`, background: step.highlight ? "#ef4444" : "white", marginBottom: 12, position: "relative", zIndex: 1 }}/>
-                    <p style={{ fontSize: 12, color: "#5f6369", lineHeight: 1.5 }}>{step.event}</p>
-                    {step.note && (
-                      <p style={{ fontSize: 11, fontWeight: 600, color: "#ef4444", marginTop: 6 }}>{step.note}</p>
-                    )}
-                  </div>
-                ))}
+          {/* Timeline track */}
+          <TimelineSection />
+
+          {/* Bottom: note + phone screenshot */}
+          <Fade delay="d3">
+            <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 48, alignItems: "flex-start", marginTop: 40 }}>
+              {/* Note text */}
+              <div style={{ paddingLeft: "32%" }}>
+                <p style={{ fontSize: "clamp(13px, 1.4vw, 20px)", color: "#000", lineHeight: 1.6, maxWidth: 420 }}>
+                  There is a help section in the app but nothing about resetting to factory settings.
+                </p>
               </div>
-            </div>
-          </Fade>
-
-          <Fade delay="d2">
-            <div style={{ marginTop: 48, padding: "24px 28px", borderRadius: 16, background: "#fff8f8", border: "1px solid #fecaca", display: "flex", gap: 16, alignItems: "flex-start", maxWidth: 520 }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
-                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="1" fill="#ef4444"/>
-              </svg>
-              <div>
-                <p style={{ fontSize: 13, fontWeight: 600, color: "#0b182c", marginBottom: 4 }}>App guidance gap</p>
-                <p style={{ fontSize: 13, color: "#5f6369", lineHeight: 1.6 }}>There is a help section in the app but nothing about resetting to factory settings. The user had to call ISP support to resolve the issue.</p>
+              {/* Phone screenshot */}
+              <div style={{ position: "relative" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/device-setup-help.png"
+                  alt="Device Setup Help screen"
+                  style={{ width: 220, borderRadius: 24, boxShadow: "0 8px 32px rgba(0,0,0,0.15)", display: "block" }}
+                />
               </div>
             </div>
           </Fade>
@@ -275,6 +261,99 @@ function Fade({ children, delay = "", className = "" }: { children: React.ReactN
     return () => obs.disconnect();
   }, []);
   return <div ref={ref} className={`fade ${on ? "on" : ""} ${delay} ${className}`}>{children}</div>;
+}
+
+function TimelineSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.2 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  // Positions as % of total width (from Figma: total line 86→1718px on 1920 canvas)
+  // 07:57=0%, 08:00=13.7%, 1h22m start=17.6%, 1h22m end=56.6%, 09:22=58.2%, 09:23=73.1%, 09:24=85.2%
+  const stops = [
+    { pct: 0,    time: "07:57",           italic: false, label: "App opened",           highlight: false },
+    { pct: 13.7, time: "08:00",           italic: false, label: "0 devices found",       highlight: false },
+    { pct: 17.6, time: "1 hour 22 minutes", italic: true, label: "Troubleshooting, testing different ports etc. Called ISP (bridged a port).", note: "App guidance did not help", highlight: true },
+    { pct: 58.2, time: "09:22",           italic: false, label: "Factory reset",         highlight: false },
+    { pct: 73.1, time: "09:23",           italic: false, label: "Connected",             highlight: false },
+    { pct: 85.2, time: "09:24",           italic: false, label: "Setup Complete!",       emoji: "🎉", highlight: false },
+  ];
+
+  // Red segment: from 08:00 (13.7%) to 09:22 (58.2%) — spans the 1h22m lost period
+  const redStart = 13.7;
+  const redEnd   = 58.2;
+
+  return (
+    <div ref={ref} style={{ position: "relative", paddingBottom: 80 }}>
+      {/* ── Gray base line ── */}
+      <div style={{
+        position: "absolute", top: 36, left: 0, right: 0, height: 1,
+        background: "#d1d5db",
+        overflow: "hidden",
+      }}>
+        {/* Animated fill */}
+        <div style={{
+          height: "100%", background: "#d1d5db",
+          width: visible ? "100%" : "0%",
+          transition: "width 1.2s cubic-bezier(0.4,0,0.2,1)",
+        }}/>
+      </div>
+
+      {/* ── Red segment (draws in after gray line) ── */}
+      <div style={{
+        position: "absolute", top: 33, height: 3, borderRadius: 2,
+        left: `${redStart}%`, width: visible ? `${redEnd - redStart}%` : "0%",
+        background: "#ef4444",
+        transformOrigin: "left center",
+        transition: "width 0.9s cubic-bezier(0.4,0,0.2,1) 0.6s",
+      }}/>
+
+      {/* ── Stops ── */}
+      {stops.map((s, i) => (
+        <div key={i} style={{
+          position: "absolute", left: `${s.pct}%`,
+          display: "flex", flexDirection: "column", alignItems: "flex-start",
+          opacity: visible ? 1 : 0,
+          transition: `opacity 0.5s ease ${0.3 + i * 0.1}s`,
+        }}>
+          {/* Time label */}
+          <p style={{
+            fontSize: "clamp(12px, 1.4vw, 22px)",
+            fontStyle: s.italic ? "italic" : "normal",
+            color: s.highlight ? "#ef4444" : "#000",
+            whiteSpace: "nowrap", marginBottom: 8, lineHeight: 1,
+          }}>
+            {s.time}{(s as {emoji?: string}).emoji ? ` ${(s as {emoji?: string}).emoji}` : ""}
+          </p>
+          {/* Dot on line */}
+          <div style={{ width: 8, height: 8 }} />
+
+          {/* Label below line */}
+          <div style={{ marginTop: 12, maxWidth: i === 2 ? 240 : 160 }}>
+            <p style={{ fontSize: "clamp(11px, 1.1vw, 18px)", color: "#000", lineHeight: 1.5 }}>{s.label}</p>
+            {s.note && (
+              <p style={{ fontSize: "clamp(10px, 1vw, 16px)", color: "#ef4444", fontWeight: 500, marginTop: 4 }}>{s.note}</p>
+            )}
+            {/* Dashed red box around the troubleshooting item */}
+            {s.highlight && (
+              <div style={{
+                position: "absolute", top: 56,
+                left: -8, right: -40,
+                bottom: -12,
+                border: "1px dashed #ef4444",
+                borderRadius: 4,
+                pointerEvents: "none",
+              }}/>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function Label({ children }: { children: React.ReactNode }) {
