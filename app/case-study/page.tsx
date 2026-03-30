@@ -76,9 +76,9 @@ export default function CaseStudy() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        @keyframes spin-arc {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
+        @keyframes spin-loader {
+          from { transform: rotate(-90deg); }
+          to   { transform: rotate(270deg); }
         }
       `}</style>
 
@@ -227,38 +227,63 @@ function Slide2() {
         UniFi Dream 7 router + UniFi App
       </p>
 
-      {/* Gray base line */}
-      <div style={{ ...abs(86, 517), width: wp(1632), height: "1px", overflow: "hidden" }}>
+      {/* Gray base line — 2px to match dot weight */}
+      <div style={{ ...abs(86, 516), width: wp(1632), height: "2px", overflow: "hidden" }}>
         <div style={{ height: "100%", background: "#d1d5db", width: v ? "100%" : "0%", transition: "width 1.2s cubic-bezier(0.4,0,0.2,1) 0.3s" }} />
       </div>
       {/* Red solid segment */}
-      <div style={{ ...abs(387, 514), height: "3px", overflow: "hidden", width: wp(745) }}>
+      <div style={{ ...abs(336, 516), height: "2px", overflow: "hidden", width: wp(745) }}>
         <div style={{ height: "100%", background: "#ef4444", width: v ? "100%" : "0%", transition: "width 0.8s cubic-bezier(0.4,0,0.2,1) 0.8s" }} />
       </div>
 
-      {/* Time labels */}
+      {/* Timeline events — time label → dot → event label (mirrors mobile layout) */}
       {([
-        { x: 86,   label: "07:57",             italic: false, red: false },
-        { x: 336,  label: "08:00",             italic: false, red: false },
-        { x: 618,  label: "1 hour 22 minutes", italic: true,  red: true  },
-        { x: 1081, label: "09:22",             italic: false, red: false },
-        { x: 1308, label: "09:23",             italic: false, red: false },
-        { x: 1522, label: "09:24",             italic: false, red: false },
-      ] as const).map((t, i) => (
-        <p key={i} style={{
-          ...abs(t.x, 449), ...f(0.15 + i * 0.07),
-          fontSize: fs(32), fontStyle: t.italic ? "italic" : "normal",
-          color: t.red ? "#ef4444" : "#000", whiteSpace: "nowrap",
-        }}>{t.label}</p>
+        { x: 86,   time: "07:57",             event: "App opened",      red: false, bold: false },
+        { x: 336,  time: "08:00",             event: "0 devices found", red: false, bold: false },
+        { x: 618,  time: "1h 22m",            event: "",                red: true,  bold: true  },
+        { x: 1081, time: "09:22",             event: "Factory reset",   red: false, bold: false },
+        { x: 1308, time: "09:23",             event: "Connected",       red: false, bold: false },
+        { x: 1522, time: "09:24",             event: "Setup complete",  red: false, bold: false },
+      ] as const).map((e, i) => (
+        <React.Fragment key={i}>
+          {/* Time label — above the line */}
+          <p style={{
+            ...abs(e.x, e.red ? 440 : 454), ...f(0.12 + i * 0.06),
+            fontSize: e.red ? fs(26) : fs(26),
+            fontWeight: e.red ? 600 : 500,
+            fontStyle: e.red ? "italic" : "normal",
+            color: e.red ? "#ef4444" : "#374151",
+            whiteSpace: "nowrap",
+            transform: "translateX(-50%)",
+          }}>{e.time}</p>
+
+          {/* Dot — centered on the line */}
+          <div style={{
+            position: "absolute",
+            left: `${(e.x / 1920) * 100}%`,
+            top: `${(517 / 1080) * 100}%`,
+            width: e.red ? fs(14) : fs(11),
+            height: e.red ? fs(14) : fs(11),
+            borderRadius: "50%",
+            background: e.red ? "#ef4444" : "#374151",
+            transform: "translate(-50%, -50%)",
+            boxShadow: "0 0 0 3px #fff",
+            opacity: v ? 1 : 0,
+            transition: `opacity 0.3s ease ${0.9 + i * 0.08}s`,
+          }} />
+
+          {/* Event label — below the line */}
+          {e.event ? (
+            <p style={{
+              ...abs(e.x, 545), ...f(0.18 + i * 0.06),
+              fontSize: fs(22), color: "#374151",
+              transform: "translateX(-50%)", whiteSpace: "nowrap",
+            }}>{e.event}</p>
+          ) : null}
+        </React.Fragment>
       ))}
 
-      <p style={{ ...abs(1745, 490), ...f(0.6), fontSize: fs(34) }}>🎉</p>
-
-      <p style={{ ...abs(86,   545), ...f(0.20), fontSize: fs(24), color: "#000" }}>App opened</p>
-      <p style={{ ...abs(336,  545), ...f(0.25), fontSize: fs(24), color: "#000" }}>0 devices found</p>
-      <p style={{ ...abs(1081, 545), ...f(0.40), fontSize: fs(24), color: "#000" }}>Factory reset</p>
-      <p style={{ ...abs(1308, 545), ...f(0.45), fontSize: fs(24), color: "#000" }}>Connected</p>
-      <p style={{ ...abs(1522, 545), ...f(0.50), fontSize: fs(24), color: "#000" }}>Setup Complete!</p>
+      <p style={{ ...abs(1740, 540), ...f(0.6), fontSize: fs(28) }}>🎉</p>
 
       {/* Dashed red box with text inside — equal padding all sides */}
       <div style={{
@@ -406,15 +431,25 @@ function Slide5() {
       <img src="/s5-ring-inner.png" alt="" style={{ ...abs(1142, 194), width: wp(568), height: hp(568), ...f(0.2) }} />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/s5-router.png" alt="" style={{ ...abs(1322, 317), width: wp(208), objectFit: "contain", ...f(0.25) }} />
-      <div style={{
-        ...abs(1475, 238), width: wp(307), height: hp(274),
-        ...f(0.3),
-        animation: v ? "spin-arc 12s linear infinite" : "none",
-        transformOrigin: `${((1426 - 1475) / 307) * 100}% ${((478 - 238) / 274) * 100}%`,
-      }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/s5-arc.svg" alt="" style={{ width: "100%", height: "100%" }} />
-      </div>
+      {/* Blue circular loader — centered on the ring, starts at 12 o'clock */}
+      <svg
+        viewBox="0 0 1920 1080"
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", overflow: "visible", ...f(0.3) }}
+      >
+        <circle
+          cx={1426.5} cy={478.5} r={294}
+          fill="none"
+          stroke="#0073f1"
+          strokeWidth={5}
+          strokeLinecap="round"
+          strokeDasharray={`${0.75 * 2 * Math.PI * 294} ${0.25 * 2 * Math.PI * 294}`}
+          style={{
+            transformBox: "fill-box",
+            transformOrigin: "center",
+            animation: v ? "spin-loader 1.4s linear infinite" : "none",
+          } as React.CSSProperties}
+        />
+      </svg>
       <p style={{
         ...abs(1425.5, 830), transform: "translateX(-50%)", width: wp(591),
         ...f(0.35), fontSize: fs(50), fontWeight: 500, color: "#000", textAlign: "center",
@@ -446,14 +481,19 @@ function Slide5Mobile() {
         <img src="/s5-ring-inner.png" alt="" style={{ position: "absolute", inset: "4%", width: "92%", height: "92%" }} />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/s5-router.png" alt="" style={{ position: "absolute", left: "28%", top: "22%", width: "44%", objectFit: "contain" }} />
-        <div style={{
-          position: "absolute", right: "-8%", top: "4%", width: "55%", height: "55%",
-          animation: v ? "spin-arc 12s linear infinite" : "none",
-          transformOrigin: "20% 90%",
-        }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/s5-arc.svg" alt="" style={{ width: "100%", height: "100%" }} />
-        </div>
+        {/* Blue circular loader centered on the ring */}
+        <svg viewBox="0 0 220 220" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", overflow: "visible" }}>
+          <circle
+            cx={110} cy={110} r={104}
+            fill="none" stroke="#0073f1" strokeWidth={3} strokeLinecap="round"
+            strokeDasharray={`${0.75 * 2 * Math.PI * 104} ${0.25 * 2 * Math.PI * 104}`}
+            style={{
+              transformBox: "fill-box",
+              transformOrigin: "center",
+              animation: v ? "spin-loader 1.4s linear infinite" : "none",
+            } as React.CSSProperties}
+          />
+        </svg>
       </div>
 
       <p style={{ fontSize: 22, fontWeight: 500, textAlign: "center", color: "#000", ...f(0.2) }}>
