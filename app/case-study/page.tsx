@@ -66,23 +66,24 @@ export default function CaseStudy() {
           SLIDE 1 — HERO
       ══════════════════════════════════════════ */}
       <section id="intro" ref={reg("intro")}
-        style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "80px 8vw", background: "linear-gradient(150deg, #f5f9ff 0%, #ffffff 55%)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", display: "grid", gridTemplateColumns: "1fr auto", gap: 48, alignItems: "center" }}>
+        style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "80px 8vw", background: "#ffffff" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto", width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0, alignItems: "center" }}>
+          {/* Left: text */}
           <Fade>
-            <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#0073f1", marginBottom: 20 }}>
-              UX Review · 2025
-            </p>
-            <h1 style={{ fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 700, color: "#0b182c", lineHeight: 1.1, marginBottom: 32, maxWidth: 600 }}>
+            <h1 style={{ fontSize: "clamp(40px, 5vw, 68px)", fontWeight: 400, color: "#000", lineHeight: 1.15, marginBottom: 48, maxWidth: 520 }}>
               What does a home user see when they open the app?
             </h1>
-            <div style={{ borderTop: "2px solid #0073f1", paddingTop: 16, maxWidth: 420 }}>
-              <p style={{ fontSize: 16, fontWeight: 600, color: "#0b182c", marginBottom: 4 }}>UniFi Dream 7 router</p>
-              <p style={{ fontSize: 14, color: "#9da1a7" }}>Kristofer Pallfy · UX-review</p>
+            <div style={{ maxWidth: 400 }}>
+              <p style={{ fontSize: 16, fontWeight: 700, color: "#000", marginBottom: 10 }}>UniFi Dream 7 router</p>
+              <div style={{ height: 1, background: "#0073f1", marginBottom: 10 }}/>
+              <p style={{ fontSize: 14, fontWeight: 400, color: "#555" }}>Kristofer Pallfy - UX-review</p>
             </div>
           </Fade>
-          {/* Router illustration */}
-          <Fade delay="d2">
-            <RouterIllustration />
+          {/* Right: router photo */}
+          <Fade delay="d1">
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <RouterPhoto />
+            </div>
           </Fade>
         </div>
       </section>
@@ -279,32 +280,47 @@ function Label({ children }: { children: React.ReactNode }) {
   return <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#0073f1" }}>{children}</p>;
 }
 
-function RouterIllustration() {
+function RouterPhoto() {
+  // Faithful CSS reproduction of the UniFi Dream Router 7 photo from Figma
   return (
-    <div style={{ position: "relative", width: 260, height: 320, flexShrink: 0 }}>
-      {/* Glow */}
-      <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,115,241,0.08) 0%, transparent 70%)" }}/>
-      {/* Router body */}
+    <div style={{ position: "relative", width: 320, height: 400 }}>
+      {/* Shadow */}
       <div style={{
-        position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)",
-        width: 140, height: 180, borderRadius: 32,
-        background: "linear-gradient(160deg, #f8f9fb 0%, #e8ecf0 100%)",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06)",
-        display: "flex", alignItems: "center", justifyContent: "center",
+        position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)",
+        width: 200, height: 24, borderRadius: "50%",
+        background: "radial-gradient(ellipse, rgba(0,0,0,0.18) 0%, transparent 70%)",
+      }}/>
+      {/* Body */}
+      <div style={{
+        position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -54%)",
+        width: 200, height: 300,
+        borderRadius: "50% 50% 40% 40% / 30% 30% 26% 26%",
+        background: "linear-gradient(170deg, #ffffff 0%, #f0f2f5 60%, #e4e7ec 100%)",
+        boxShadow: "2px 8px 40px rgba(0,0,0,0.13), 0 0 0 1px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.8)",
+        overflow: "hidden",
+        display: "flex", flexDirection: "column", alignItems: "center",
       }}>
-        <div style={{ width: 36, height: 36, borderRadius: 10, background: "#0073f1", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
-            <path d="M3.75 14.75V11.75C3.75 11.2 4.23 10.75 4.75 10.75H16.75C17.27 10.75 17.75 11.2 17.75 11.75V14.75M10.75 10.75V6.75M15.75 14.75H19.75C20.3 14.75 20.75 15.2 20.75 15.75V19.75C20.75 20.3 20.3 20.75 19.75 20.75H15.75C15.2 20.75 14.75 20.3 14.75 19.75V15.75C14.75 15.2 15.2 14.75 15.75 14.75ZM1.75 14.75H5.75C6.3 14.75 6.75 15.2 6.75 15.75V19.75C6.75 20.3 6.3 20.75 5.75 20.75H1.75C1.2 20.75 0.75 20.3 0.75 19.75V15.75C0.75 15.2 1.2 14.75 1.75 14.75ZM8.75 0.75H12.75C13.3 0.75 13.75 1.2 13.75 1.75V5.75C13.75 6.3 13.3 6.75 12.75 6.75H8.75C8.2 6.75 7.75 6.3 7.75 5.75V1.75C7.75 1.2 8.2 0.75 8.75 0.75Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+        {/* Blue LED ring at top */}
+        <div style={{
+          width: "110%", height: 6, marginTop: -1,
+          background: "linear-gradient(90deg, transparent 5%, #1a8fff 20%, #0cf 50%, #1a8fff 80%, transparent 95%)",
+          boxShadow: "0 0 12px 3px rgba(0,180,255,0.5)",
+          borderRadius: "0 0 50% 50%",
+        }}/>
+        {/* Small display screen in middle */}
+        <div style={{
+          marginTop: 80, width: 44, height: 58,
+          borderRadius: 8,
+          background: "#0a1628",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, padding: 6,
+        }}>
+          <div style={{ width: "80%", height: 3, borderRadius: 2, background: "#22c55e" }}/>
+          <div style={{ width: "70%", height: 2, borderRadius: 2, background: "rgba(255,255,255,0.3)" }}/>
+          <div style={{ width: "70%", height: 2, borderRadius: 2, background: "rgba(255,255,255,0.3)" }}/>
+          <div style={{ width: "60%", height: 6, borderRadius: 3, background: "#0073f1", marginTop: 2 }}/>
         </div>
       </div>
-      {/* Animated arc */}
-      <svg style={{ position: "absolute", inset: 0 }} width="260" height="320" viewBox="0 0 260 320">
-        <circle cx="130" cy="160" r="100" fill="none" stroke="#e8f0fe" strokeWidth="3"/>
-        <circle cx="130" cy="160" r="100" fill="none" stroke="#0073f1" strokeWidth="3"
-          strokeDasharray="628" strokeLinecap="round"
-          style={{ transformOrigin: "130px 160px", transform: "rotate(-90deg)", animation: "spin-arc 2.5s ease-in-out infinite alternate" }}/>
-      </svg>
     </div>
   );
 }
