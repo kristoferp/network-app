@@ -76,18 +76,14 @@ export default function CaseStudy() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        /* Circle fill: dot → full → hold → back to dot */
+        /* Circle fill: dot → full, stays full */
         @keyframes fill-circle-d {
-          0%   { stroke-dashoffset: 1848; animation-timing-function: ease-out; }
-          40%  { stroke-dashoffset: 0;    animation-timing-function: linear;   }
-          70%  { stroke-dashoffset: 0;    animation-timing-function: ease-in;  }
-          100% { stroke-dashoffset: 1848; }
+          from { stroke-dashoffset: 1848; }
+          to   { stroke-dashoffset: 0; }
         }
         @keyframes fill-circle-m {
-          0%   { stroke-dashoffset: 654;  animation-timing-function: ease-out; }
-          40%  { stroke-dashoffset: 0;    animation-timing-function: linear;   }
-          70%  { stroke-dashoffset: 0;    animation-timing-function: ease-in;  }
-          100% { stroke-dashoffset: 654;  }
+          from { stroke-dashoffset: 654; }
+          to   { stroke-dashoffset: 0; }
         }
         /* Staggered loading dots */
         @keyframes dot-bounce {
@@ -459,7 +455,7 @@ function Slide5() {
           strokeLinecap="round"
           strokeDasharray="1848 1848"
           transform="rotate(-90 1426.5 478.5)"
-          style={{ animation: v ? "fill-circle-d 4s infinite" : "none" } as React.CSSProperties}
+          style={{ animation: v ? "fill-circle-d 3s ease-out forwards" : "none" } as React.CSSProperties}
         />
       </svg>
       <p style={{
@@ -502,7 +498,7 @@ function Slide5Mobile() {
             fill="none" stroke="#0073f1" strokeWidth={3} strokeLinecap="round"
             strokeDasharray="654 654"
             transform="rotate(-90 110 110)"
-            style={{ animation: v ? "fill-circle-m 4s infinite" : "none" } as React.CSSProperties}
+            style={{ animation: v ? "fill-circle-m 3s ease-out forwards" : "none" } as React.CSSProperties}
           />
         </svg>
       </div>
