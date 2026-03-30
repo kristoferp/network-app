@@ -171,7 +171,7 @@ function Slide1() {
   });
   return (
     <div ref={ref} style={{ position: "absolute", inset: 0, background: "#fff" }}>
-      <p style={{ ...abs(86, 200), ...f(0), fontSize: fs(90), fontWeight: 400, color: "#000", lineHeight: 1.1, width: wp(956) }}>
+      <p style={{ ...abs(86, 200), ...f(0), fontSize: fs(70), fontWeight: 400, color: "#000", lineHeight: 1.1, width: wp(956) }}>
         What does a home user see when they open the app?
       </p>
       <p style={{ ...abs(83, 667), ...f(0.2), fontSize: fs(44), fontWeight: 700, color: "#000", width: wp(923) }}>
@@ -220,7 +220,7 @@ function Slide2() {
   });
   return (
     <div ref={ref} style={{ position: "absolute", inset: 0, background: "#fff" }}>
-      <p style={{ ...abs(86, 200), ...f(0), fontSize: fs(90), fontWeight: 400, color: "#000" }}>
+      <p style={{ ...abs(86, 200), ...f(0), fontSize: fs(70), fontWeight: 400, color: "#000" }}>
         Getting started - timeline
       </p>
       <p style={{ ...abs(86, 337), ...f(0.05), fontSize: fs(32), color: "#000" }}>
@@ -231,14 +231,9 @@ function Slide2() {
       <div style={{ ...abs(86, 517), width: wp(1632), height: "1px", overflow: "hidden" }}>
         <div style={{ height: "100%", background: "#d1d5db", width: v ? "100%" : "0%", transition: "width 1.2s cubic-bezier(0.4,0,0.2,1) 0.3s" }} />
       </div>
-      {/* Red dashed segment — matches box border style */}
-      <div style={{ ...abs(387, 514), height: "2px", overflow: "hidden", width: wp(745) }}>
-        <div style={{
-          height: "100%",
-          backgroundImage: "repeating-linear-gradient(90deg, #ef4444 0px, #ef4444 6px, transparent 6px, transparent 12px)",
-          width: v ? "100%" : "0%",
-          transition: "width 0.8s cubic-bezier(0.4,0,0.2,1) 0.8s",
-        }} />
+      {/* Red solid segment */}
+      <div style={{ ...abs(387, 514), height: "3px", overflow: "hidden", width: wp(745) }}>
+        <div style={{ height: "100%", background: "#ef4444", width: v ? "100%" : "0%", transition: "width 0.8s cubic-bezier(0.4,0,0.2,1) 0.8s" }} />
       </div>
 
       {/* Time labels */}
@@ -285,14 +280,26 @@ function Slide2() {
         There is a help section in the app but nothing about resetting to factory settings.
       </p>
 
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/help-screen.png" alt="UniFi Help Screen"
-        style={{ ...abs(1395, 673), width: wp(355), borderRadius: fs(50), boxShadow: "0 4px 24px rgba(0,0,0,0.15)", ...f(0.65) }} />
+      {/* Help screen — cropped to show content list, no phone chrome */}
+      <div style={{
+        ...abs(1395, 650),
+        width: wp(300), height: hp(420),
+        overflow: "hidden",
+        borderRadius: fs(16),
+        boxShadow: "0 4px 24px rgba(0,0,0,0.15)",
+        background: "#fff",
+        ...f(0.65),
+      }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/help-screen.png" alt="UniFi Help Screen"
+          style={{ width: "100%", display: "block", marginTop: "-37%" }} />
+      </div>
 
+      {/* Diagonal line — starts at right edge of box (x=1053), not inside it */}
       <svg style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none", overflow: "visible" }}>
         <line
-          x1={`${(1031 / 1920) * 100}%`} y1={`${(671 / 1080) * 100}%`}
-          x2={`${(1365 / 1920) * 100}%`} y2={`${(886 / 1080) * 100}%`}
+          x1={`${(1053 / 1920) * 100}%`} y1={`${(671 / 1080) * 100}%`}
+          x2={`${(1395 / 1920) * 100}%`} y2={`${(660 / 1080) * 100}%`}
           stroke="#ef4444" strokeWidth="1" strokeDasharray="4 4"
           strokeOpacity={v ? 0.5 : 0}
           style={{ transition: "stroke-opacity 0.5s ease 0.9s" }}
@@ -371,7 +378,7 @@ function Slide5() {
   });
   return (
     <div ref={ref} style={{ position: "absolute", inset: 0, background: "#fff" }}>
-      <p style={{ ...abs(86, 220), ...f(0), fontSize: fs(90), fontWeight: 400, color: "#000" }}>
+      <p style={{ ...abs(86, 220), ...f(0), fontSize: fs(70), fontWeight: 400, color: "#000" }}>
         What works well!
       </p>
       <p style={{ ...abs(86, 337), ...f(0.05), fontSize: fs(32), color: "#000" }}>
@@ -497,7 +504,7 @@ function Slide3() {
 
   return (
     <div ref={ref} style={{ position: "absolute", inset: 0, background: "#fff" }}>
-      <p style={{ ...abs(86, 200), ...f(0), fontSize: fs(90), fontWeight: 400, color: "#000" }}>
+      <p style={{ ...abs(86, 200), ...f(0), fontSize: fs(70), fontWeight: 400, color: "#000" }}>
         First impression
       </p>
       <p style={{ ...abs(86, 319), ...f(0.05), fontSize: fs(32), color: "#000" }}>
