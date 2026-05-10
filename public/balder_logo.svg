@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160" fill="none">
+  <!-- circle -->
+  <circle cx="34" cy="72" r="22" stroke="currentColor" stroke-width="9" fill="none"/>
+  <!-- vertical bar -->
+  <rect x="75" y="24" width="9" height="112" fill="currentColor"/>
+  <!-- BALDER text -->
+  <text x="104" y="92" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="82" fill="#C4391C" letter-spacing="-2">BAL</text>
+  <text x="104" y="156" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="82" fill="#C4391C" letter-spacing="-2">DER</text>
+</svg>
